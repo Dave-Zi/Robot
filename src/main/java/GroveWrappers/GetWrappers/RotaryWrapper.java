@@ -12,8 +12,8 @@ public class RotaryWrapper implements IGroveSensorGetWrapper {
     private GroveRotarySensor rotarySensor;
     private int port;
 
-    public RotaryWrapper(GrovePi grovePi, int port) throws IOException {
-        rotarySensor = new GroveRotarySensor(grovePi, port);
+    public RotaryWrapper(GroveRotarySensor rotarySensor, int port) throws IOException {
+        this.rotarySensor = rotarySensor;
         this.port = port;
     }
 

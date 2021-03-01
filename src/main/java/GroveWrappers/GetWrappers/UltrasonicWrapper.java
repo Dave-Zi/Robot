@@ -12,15 +12,14 @@ public class UltrasonicWrapper implements IGroveSensorGetWrapper {
     private GroveUltrasonicRanger ultrasonicRanger;
     private int port;
 
-    public UltrasonicWrapper(GrovePi grovePi, int port){
-        ultrasonicRanger = new GroveUltrasonicRanger(grovePi, port);
+    public UltrasonicWrapper(GroveUltrasonicRanger ultrasonicRanger, int port){
+        this.ultrasonicRanger = ultrasonicRanger;
         this.port = port;
     }
 
     @Override
     public Double get(int mode) {
         try {
-
             return ultrasonicRanger.get();
         } catch (IOException e) {
             logger.severe(String.format("Error when reading data from port D%d", port));

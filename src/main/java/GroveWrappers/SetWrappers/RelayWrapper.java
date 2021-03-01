@@ -12,8 +12,8 @@ public class RelayWrapper implements IGroveSensorSetWrapper {
     private GroveRelay relay;
     private int port;
 
-    public RelayWrapper(GrovePi grovePi, int port) throws IOException {
-        relay = new GroveRelay(grovePi, port);
+    public RelayWrapper(GroveRelay relay, int port) throws IOException {
+        this.relay = relay;
         this.port = port;
     }
 

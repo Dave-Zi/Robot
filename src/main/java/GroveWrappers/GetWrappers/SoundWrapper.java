@@ -12,8 +12,8 @@ public class SoundWrapper implements IGroveSensorGetWrapper {
     private GroveSoundSensor soundSensor;
     private int port;
 
-    public SoundWrapper(GrovePi grovePi, int port) throws IOException {
-        soundSensor = new GroveSoundSensor(grovePi, port);
+    public SoundWrapper(GroveSoundSensor soundSensor, int port) throws IOException {
+        this.soundSensor = soundSensor;
         this.port = port;
     }
 

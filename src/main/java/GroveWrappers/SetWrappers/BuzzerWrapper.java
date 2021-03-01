@@ -12,8 +12,8 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
     private GroveDigitalOut buzzer;
     private int port;
 
-    public BuzzerWrapper(GrovePi grovePi, int port) throws IOException {
-        buzzer = new GroveDigitalOut(grovePi, port);
+    public BuzzerWrapper(GroveDigitalOut buzzer, int port) throws IOException {
+        this.buzzer = buzzer;
         this.port = port;
     }
 

@@ -11,8 +11,8 @@ public class LightWrapper implements IGroveSensorGetWrapper{
     private GroveLightSensor lightSensor;
     private int port;
 
-    public LightWrapper(GrovePi grovePi, int port) throws IOException {
-        lightSensor = new GroveLightSensor(grovePi, port);
+    public LightWrapper(GroveLightSensor lightSensor, int port) throws IOException {
+        this.lightSensor = lightSensor;
         this.port = port;
     }
 

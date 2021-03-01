@@ -1,10 +1,12 @@
+import Boards.IBoard;
+
 import java.util.logging.Logger;
 
-public class Ev3Board extends EV3 implements IBoard{
+public class Ev3Board extends EV3 implements IBoard {
 
     private Logger logger = Logger.getLogger(EV3.class.getName());
 
-    Ev3Board(String portName) {
+    public Ev3Board(String portName) {
         super(portName);
     }
 

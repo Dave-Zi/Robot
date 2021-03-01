@@ -12,8 +12,8 @@ public class TemperatureWrapper implements IGroveSensorGetWrapper {
     private GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor;
     private int port;
 
-    public TemperatureWrapper(GrovePi grovePi, int port, GroveTemperatureAndHumiditySensor.Type dhtType) {
-        temperatureAndHumiditySensor = new GroveTemperatureAndHumiditySensor(grovePi, port, dhtType);
+    public TemperatureWrapper(GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor, int port, GroveTemperatureAndHumiditySensor.Type dhtType) {
+        this.temperatureAndHumiditySensor = temperatureAndHumiditySensor;
         this.port = port;
     }
 

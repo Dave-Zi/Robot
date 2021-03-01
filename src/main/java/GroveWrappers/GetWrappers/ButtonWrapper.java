@@ -12,8 +12,8 @@ public class ButtonWrapper implements IGroveSensorGetWrapper {
     private GroveDigitalIn button;
     private int port;
 
-    public ButtonWrapper(GrovePi grovePi, int port) throws IOException {
-        button = grovePi.getDigitalIn(port);
+    public ButtonWrapper(GroveDigitalIn button, int port) throws IOException {
+        this.button = button;
         this.port = port;
     }
 

@@ -1,6 +1,8 @@
+package Boards;
+
 import java.awt.*;
 
-interface IBoard {
+public interface IBoard {
 
     Boolean getBooleanSensorData(String port, int mode);
 
