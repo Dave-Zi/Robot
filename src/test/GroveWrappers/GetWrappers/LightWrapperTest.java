@@ -22,7 +22,7 @@ public class LightWrapperTest {
     }
 
     @Test
-    public void get() throws IOException {
+    public void getLightValue() throws IOException {
         when(lightSensor.get()).thenReturn(0.5);
         double actual = lightWrapper.get(0);
         assertEquals(0.5, actual, 0.01);

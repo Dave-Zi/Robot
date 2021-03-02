@@ -22,12 +22,7 @@ public class TemperatureWrapperTest {
     }
 
     @Test
-    public void get() throws IOException {
-        temperature();
-        humidity();
-    }
-
-    private void temperature() throws IOException {
+    public void getTemperature() throws IOException {
         double temperature = 30.5;
         when(temperatureAndHumiditySensor.get()).thenReturn(mock(GroveTemperatureAndHumidityValue.class));
         GroveTemperatureAndHumidityValue result = temperatureAndHumiditySensor.get();
@@ -35,7 +30,8 @@ public class TemperatureWrapperTest {
         assertEquals(temperature, temperatureWrapper.get(0), 0.01);
     }
 
-    private void humidity() throws IOException {
+    @Test
+    public void getHumidity() throws IOException {
         double humidity = 20.5;
         when(temperatureAndHumiditySensor.get()).thenReturn(mock(GroveTemperatureAndHumidityValue.class));
         GroveTemperatureAndHumidityValue result = temperatureAndHumiditySensor.get();

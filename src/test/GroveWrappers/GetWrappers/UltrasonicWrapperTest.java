@@ -22,7 +22,7 @@ public class UltrasonicWrapperTest {
     }
 
     @Test
-    public void get() throws IOException {
+    public void getUltrasonic() throws IOException {
         when(ultrasonicRanger.get()).thenReturn(0.5);
         double actual = ultrasonicWrapper.get(1);
         assertEquals(0.5, actual, 0.01);

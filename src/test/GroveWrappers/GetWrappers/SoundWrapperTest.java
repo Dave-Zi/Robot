@@ -21,7 +21,7 @@ public class SoundWrapperTest {
     }
 
     @Test
-    public void get() throws IOException {
+    public void getSound() throws IOException {
         when(soundSensor.get()).thenReturn(0.5);
         double actual = soundWrapper.get(0);
         assertEquals(0.5, actual, 0.01);

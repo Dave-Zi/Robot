@@ -22,18 +22,14 @@ public class ButtonWrapperTest {
     }
 
     @Test
-    public void get() throws IOException, InterruptedException {
-        pressed();
-        released();
-    }
-
-    private void released() throws IOException, InterruptedException {
+    public void getReleasedButtonValue() throws IOException, InterruptedException {
         when(button.get()).thenReturn(false);
         double actual = buttonWrapper.get(1);
         assertEquals(0.0, actual, 0.01);
     }
 
-    private void pressed() throws IOException, InterruptedException {
+    @Test
+    public void getPressedButtonValue() throws IOException, InterruptedException {
         when(button.get()).thenReturn(true);
         double actual = buttonWrapper.get(1);
         assertEquals(1.0, actual, 0.01);
