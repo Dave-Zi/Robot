@@ -2,13 +2,12 @@ package GroveWrappers.GetWrappers;
 
 import org.iot.raspberry.grovepi.devices.GroveRotarySensor;
 import org.iot.raspberry.grovepi.devices.GroveRotaryValue;
-import org.iot.raspberry.grovepi.devices.GroveSoundSensor;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +22,7 @@ public class RotaryWrapperTest {
     }
 
     @Test
-    public void getSensorValue() throws IOException {
+    public void testGetSensorValue() throws IOException {
         double sensorValue = 1.0;
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();
@@ -32,7 +31,7 @@ public class RotaryWrapperTest {
     }
 
     @Test
-    public void getVoltage() throws IOException {
+    public void testGetVoltage() throws IOException {
         double voltage = 1.5;
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();
@@ -41,7 +40,7 @@ public class RotaryWrapperTest {
     }
 
     @Test
-    public void getDegrees() throws IOException {
+    public void testGetDegrees() throws IOException {
         double degrees = 2.0;
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();

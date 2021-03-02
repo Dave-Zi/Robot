@@ -1,13 +1,12 @@
 package GroveWrappers.GetWrappers;
 
-import org.iot.raspberry.grovepi.devices.GroveSoundSensor;
 import org.iot.raspberry.grovepi.devices.GroveUltrasonicRanger;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +21,7 @@ public class UltrasonicWrapperTest {
     }
 
     @Test
-    public void getUltrasonic() throws IOException {
+    public void testGetUltrasonic() throws IOException {
         when(ultrasonicRanger.get()).thenReturn(0.5);
         double actual = ultrasonicWrapper.get(1);
         assertEquals(0.5, actual, 0.01);

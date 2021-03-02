@@ -1,13 +1,12 @@
 package GroveWrappers.GetWrappers;
 
 import org.iot.raspberry.grovepi.GroveDigitalIn;
-import org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,14 +21,14 @@ public class ButtonWrapperTest {
     }
 
     @Test
-    public void getReleasedButtonValue() throws IOException, InterruptedException {
+    public void testGetReleasedButtonValue() throws IOException, InterruptedException {
         when(button.get()).thenReturn(false);
         double actual = buttonWrapper.get(1);
         assertEquals(0.0, actual, 0.01);
     }
 
     @Test
-    public void getPressedButtonValue() throws IOException, InterruptedException {
+    public void testGetPressedButtonValue() throws IOException, InterruptedException {
         when(button.get()).thenReturn(true);
         double actual = buttonWrapper.get(1);
         assertEquals(1.0, actual, 0.01);
