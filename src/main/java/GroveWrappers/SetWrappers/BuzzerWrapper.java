@@ -12,7 +12,7 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
     private GroveDigitalOut buzzer;
     private int port;
 
-    public BuzzerWrapper(GroveDigitalOut buzzer, int port) throws IOException {
+    public BuzzerWrapper(GroveDigitalOut buzzer, int port){
         this.buzzer = buzzer;
         this.port = port;
     }

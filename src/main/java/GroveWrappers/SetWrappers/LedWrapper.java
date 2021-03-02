@@ -11,7 +11,7 @@ public class LedWrapper implements IGroveSensorSetWrapper {
     private GroveLed led;
     private int port;
 
-    public LedWrapper(GroveLed led, int port) throws IOException {
+    public LedWrapper(GroveLed led, int port){
         this.led = led;
         this.port = port;
     }

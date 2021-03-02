@@ -16,6 +16,7 @@ public class Main {
             else if (d >= 20){
                 grove.setSensorData("D2", false);
             }
+            EV3 ev3 = new EV3("rfcomm0");
         }
 
 //        //end program forcefully
