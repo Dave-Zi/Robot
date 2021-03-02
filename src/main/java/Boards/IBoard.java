@@ -1,16 +1,14 @@
-package Boards;
-
 import java.awt.*;
 
 public interface IBoard {
 
-    Boolean getBooleanSensorData(String port, int mode);
+    Boolean getBooleanSensorData(IPortEnums port, int mode);
 
-    Double getDoubleSensorData(String port, int mode);
+    Double getDoubleSensorData(IPortEnums port, int mode);
 
-    void setSensorData(String port, boolean value);
+    void setSensorData(IPortEnums port, boolean value);
 
-    void drive(String port, double speed);
+    void drive(IPortEnums port, double speed);
 
     void disconnect();
 }

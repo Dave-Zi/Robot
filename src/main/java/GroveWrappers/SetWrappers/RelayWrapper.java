@@ -1,7 +1,6 @@
 package GroveWrappers.SetWrappers;
 
 import org.iot.raspberry.grovepi.GrovePi;
-import org.iot.raspberry.grovepi.devices.GroveLed;
 import org.iot.raspberry.grovepi.devices.GroveRelay;
 
 import java.io.IOException;

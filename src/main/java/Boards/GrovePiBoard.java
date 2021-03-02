@@ -1,4 +1,7 @@
 package Boards;
+import Enums.GrovePiPort;
+import Enums.IPortEnums;
+import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -23,54 +26,30 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     }
 
     @Override
-    public Boolean getBooleanSensorData(String port, int mode) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return null;
-        }
+    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+        GrovePiPort thisPort = (GrovePiPort) port;
 
-        return sensorGetMap.get(port).get(mode) > 0.0;
+        return sensorGetMap.get(thisPort.portName).get(mode) > 0.0;
     }
 
     @Override
-    public Double getDoubleSensorData(String port, int mode) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return null;
-        }
-        return sensorGetMap.get(port).get(mode);
+    public Double getDoubleSensorData(IPortEnums port, int mode) {
+
+        GrovePiPort thisPort = (GrovePiPort) port;
+        return sensorGetMap.get(thisPort.portName).get(mode);
     }
 
     @Override
-    public void setSensorData(String port, boolean value) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return;
-        }
-        sensorSetMap.get(port).set(value);
+    public void setSensorData(IPortEnums port, boolean value) {
+        GrovePiPort thisPort = (GrovePiPort) port;
+        sensorSetMap.get(thisPort.portName).set(value);
     }
 
     @Override
-    public void drive(String port, double speed) {
-
+    public void drive(IPortEnums port, double speed) {
     }
 
     @Override
     public void disconnect() {
-
-    }
-
-    private boolean isPortIllegal(String port) {
-        if (port.length() != 2) {
-            return true;
-        }
-        char portChar = port.charAt(0);
-
-        if (portChar < 'A' || portChar > 'D') {
-            return true;
-        }
-        int portNumber = Integer.valueOf(port.substring(1));
-
-        return portNumber < 0 || portNumber > 8;
     }
 }

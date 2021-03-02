@@ -1,6 +1,10 @@
 import Boards.IBoard;
-import java.util.logging.Logger;
 
+import Enums.Ev3DrivePort;
+import Enums.Ev3SensorPort;
+import Enums.IPortEnums;
+
+import java.util.logging.Logger;
 
 public class Ev3Board extends EV3 implements IBoard {
 
@@ -19,53 +23,42 @@ public class Ev3Board extends EV3 implements IBoard {
     /*
      * Ev3 sensor ports are 1 2 3 4
      */
-    public Double getDoubleSensorData(String port, int mode) {
-        if (port.length() != 1) {
-            logger.severe("Illegal port index");
-            return 0.0;
-        }
-        int portInt = Integer.getInteger(port);
-        if (portInt < 1 || portInt > 4) {
-            logger.severe("Illegal port index");
-            return 0.0;
-        }
-        return Double.valueOf(super.sensor(portInt, mode));
+    public Double getDoubleSensorData(IPortEnums port, int mode) {
+
+        Ev3SensorPort thisPort = (Ev3SensorPort) port;
+        return Double.valueOf(super.sensor(thisPort.portNumber, mode));
     }
 
     @Override
-    public void setSensorData(String port, boolean value) {
+    public void setSensorData(IPortEnums port, boolean value) {
         tone(440, 50, 200);
     }
 
     @Override
-    public Boolean getBooleanSensorData(String port, int mode) {
+    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
         return null;
     }
 
 
     @Override
-    public void drive(String port, double speed) {
-        if (port.length() != 1) {
-            logger.severe("Illegal port index");
-            return;
-        }
-
+    public void drive(IPortEnums port, double speed) {
+        Ev3DrivePort thisPort = (Ev3DrivePort) port;
 
 //        int portInt = Integer.getInteger(port);
-        switch (port) {
-            case "A":
+        switch (thisPort) {
+            case A:
                 spin((int) speed, 0, 0, 0);
                 break;
 
-            case "B":
+            case B:
                 spin(0, (int) speed, 0, 0);
                 break;
 
-            case "C":
+            case C:
                 spin(0, 0, (int) speed, 0);
                 break;
 
-            case "D":
+            case D:
                 spin(0, 0, 0, (int) speed);
                 break;
         }
