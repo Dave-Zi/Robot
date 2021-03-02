@@ -29,14 +29,17 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ReadJsonToDictionaries("./classes/Robot.json");
-        //your stuff here
+        //your stuff here.
         IBoard grove = new GrovePiBoard(SensorGetMap, SensorSetMap);
 
         Map.Entry<String, Ev3Board> ev = Ev3Map.entrySet().iterator().next();
         Ev3Board ev3B = ev.getValue();
 //        System.out.println(ev.getKey());
         while (true) {
-            ev3B.drive(Ev3DrivePort.A, 0);
+
+            ev3B.drive(Ev3DrivePort.B, 10);
+            ev3B.drive(Ev3DrivePort.C, 10);
+
         }
 
 
