@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 public class RelayWrapper implements IGroveSensorSetWrapper {
     private Logger logger = Logger.getLogger(RelayWrapper.class.getName());
     private GroveRelay relay;
-    private int port;
 
-    public RelayWrapper(GroveRelay relay, int port){
+    public RelayWrapper(GroveRelay relay){
         this.relay = relay;
-        this.port = port;
     }
 
     @Override
@@ -21,7 +19,7 @@ public class RelayWrapper implements IGroveSensorSetWrapper {
         try {
             relay.set(value);
         } catch (IOException e) {
-            logger.severe(String.format("Error when writing data to port D%d", port));
+            logger.severe("Error when writing data to port");
         }
     }
 }

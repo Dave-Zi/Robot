@@ -18,8 +18,8 @@ public class RotaryWrapperTest {
     private GroveRotarySensor rotarySensor = mock(GroveRotarySensor.class);
 
     @Before
-    public void setUp() throws Exception {
-        rotaryWrapper = new RotaryWrapper(rotarySensor, 0);
+    public void setUp(){
+        rotaryWrapper = new RotaryWrapper(rotarySensor);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class RotaryWrapperTest {
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();
         when(result.getSensorValue()).thenReturn(1.0);
-        assertTrue(sensorValue==rotaryWrapper.get(0));
+        assertEquals(sensorValue, rotaryWrapper.get(0), 0.01);
     }
 
     private void voltage() throws IOException {
@@ -42,7 +42,7 @@ public class RotaryWrapperTest {
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();
         when(result.getVoltage()).thenReturn(1.5);
-        assertTrue(voltage==rotaryWrapper.get(1));
+        assertEquals(voltage, rotaryWrapper.get(1), 0.01);
     }
 
     private void degrees() throws IOException {
@@ -50,6 +50,6 @@ public class RotaryWrapperTest {
         when(rotarySensor.get()).thenReturn(mock(GroveRotaryValue.class));
         GroveRotaryValue result = rotarySensor.get();
         when(result.getDegrees()).thenReturn(2.0);
-        assertTrue(degrees==rotaryWrapper.get(2));
+        assertEquals(degrees, rotaryWrapper.get(2), 0.01);
     }
 }

@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 public class LightWrapper implements IGroveSensorGetWrapper{
     private Logger logger = Logger.getLogger(LightWrapper.class.getName());
     private GroveLightSensor lightSensor;
-    private int port;
 
-    public LightWrapper(GroveLightSensor lightSensor, int port) throws IOException {
+    public LightWrapper(GroveLightSensor lightSensor) {
         this.lightSensor = lightSensor;
-        this.port = port;
     }
 
     @Override
@@ -21,7 +19,7 @@ public class LightWrapper implements IGroveSensorGetWrapper{
         try {
             return lightSensor.get();
         } catch (IOException e) {
-            logger.severe(String.format("Error when reading data from port A%d", port));
+            logger.severe("Error when reading data from port");
             return null;
         }
     }

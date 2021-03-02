@@ -17,14 +17,14 @@ public class LightWrapperTest {
     private GroveLightSensor lightSensor = mock(GroveLightSensor.class);
 
     @Before
-    public void setUp() throws Exception {
-        lightWrapper = new LightWrapper(lightSensor, 0);
+    public void setUp(){
+        lightWrapper = new LightWrapper(lightSensor);
     }
 
     @Test
     public void get() throws IOException {
         when(lightSensor.get()).thenReturn(0.5);
         double actual = lightWrapper.get(0);
-        assertTrue(0.5==actual);
+        assertEquals(0.5, actual, 0.01);
     }
 }

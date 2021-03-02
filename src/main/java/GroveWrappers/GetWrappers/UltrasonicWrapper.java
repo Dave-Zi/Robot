@@ -10,11 +10,9 @@ public class UltrasonicWrapper implements IGroveSensorGetWrapper {
 
     private Logger logger = Logger.getLogger(UltrasonicWrapper.class.getName());
     private GroveUltrasonicRanger ultrasonicRanger;
-    private int port;
 
-    public UltrasonicWrapper(GroveUltrasonicRanger ultrasonicRanger, int port){
+    public UltrasonicWrapper(GroveUltrasonicRanger ultrasonicRanger){
         this.ultrasonicRanger = ultrasonicRanger;
-        this.port = port;
     }
 
     @Override
@@ -22,7 +20,7 @@ public class UltrasonicWrapper implements IGroveSensorGetWrapper {
         try {
             return ultrasonicRanger.get();
         } catch (IOException e) {
-            logger.severe(String.format("Error when reading data from port D%d", port));
+            logger.severe("Error when reading data from port");
             return null;
         }
     }

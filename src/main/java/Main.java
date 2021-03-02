@@ -96,35 +96,35 @@ public class Main {
             int portNumber = Integer.valueOf(sensorData.getKey().substring(1));
             switch (sensorData.getValue()) {
                 case "Led":
-                    sensorSetMap.put(sensorData.getKey(), new LedWrapper(new GroveLed(grovePi, portNumber), portNumber));
+                    sensorSetMap.put(sensorData.getKey(), new LedWrapper(new GroveLed(grovePi, portNumber)));
                     continue;
 
                 case "Ultrasonic":
-                    sensorGetMap.put(sensorData.getKey(), new UltrasonicWrapper(new GroveUltrasonicRanger(grovePi, portNumber), portNumber));
+                    sensorGetMap.put(sensorData.getKey(), new UltrasonicWrapper(new GroveUltrasonicRanger(grovePi, portNumber)));
                     continue;
 
                 case "Sound":
-                    sensorGetMap.put(sensorData.getKey(), new SoundWrapper(new GroveSoundSensor(grovePi, portNumber), portNumber));
+                    sensorGetMap.put(sensorData.getKey(), new SoundWrapper(new GroveSoundSensor(grovePi, portNumber)));
                     continue;
 
                 case "Button":
-                    sensorGetMap.put(sensorData.getKey(), new ButtonWrapper(grovePi.getDigitalIn(portNumber), portNumber));
+                    sensorGetMap.put(sensorData.getKey(), new ButtonWrapper(grovePi.getDigitalIn(portNumber)));
                     continue;
 
                 case "Rotary":
-                    sensorGetMap.put(sensorData.getKey(), new RotaryWrapper(new GroveRotarySensor(grovePi, portNumber), portNumber));
+                    sensorGetMap.put(sensorData.getKey(), new RotaryWrapper(new GroveRotarySensor(grovePi, portNumber)));
                     continue;
 
                 case "Relay":
-                    sensorSetMap.put(sensorData.getKey(), new RelayWrapper(new GroveRelay(grovePi, portNumber), portNumber));
+                    sensorSetMap.put(sensorData.getKey(), new RelayWrapper(new GroveRelay(grovePi, portNumber)));
                     continue;
 
                 case "Light":
-                    sensorGetMap.put(sensorData.getKey(), new LightWrapper(new GroveLightSensor(grovePi, portNumber), portNumber));
+                    sensorGetMap.put(sensorData.getKey(), new LightWrapper(new GroveLightSensor(grovePi, portNumber)));
                     continue;
 
                 case "Buzzer":
-                    sensorSetMap.put(sensorData.getKey(), new BuzzerWrapper(new GroveDigitalOut(grovePi, portNumber), portNumber));
+                    sensorSetMap.put(sensorData.getKey(), new BuzzerWrapper(new GroveDigitalOut(grovePi, portNumber)));
                     continue;
 
             }
@@ -135,22 +135,22 @@ public class Main {
                 switch (sensorData.getValue().substring("Temperature ".length())) {
                     case "DHT11":
                         dhtType = GroveTemperatureAndHumiditySensor.Type.DHT11;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType), portNumber, dhtType));
+                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
                         continue;
 
                     case "DHT21":
                         dhtType = GroveTemperatureAndHumiditySensor.Type.DHT21;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType), portNumber, dhtType));
+                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
                         continue;
 
                     case "DHT22":
                         dhtType = GroveTemperatureAndHumiditySensor.Type.DHT22;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType), portNumber, dhtType));
+                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
                         continue;
 
                     case "AM2301":
                         dhtType = GroveTemperatureAndHumiditySensor.Type.AM2301;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType), portNumber, dhtType));
+                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
                 }
             }
         }

@@ -10,11 +10,9 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
 
     private Logger logger = Logger.getLogger(BuzzerWrapper.class.getName());
     private GroveDigitalOut buzzer;
-    private int port;
 
-    public BuzzerWrapper(GroveDigitalOut buzzer, int port){
+    public BuzzerWrapper(GroveDigitalOut buzzer){
         this.buzzer = buzzer;
-        this.port = port;
     }
 
     @Override
@@ -22,7 +20,7 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
         try {
             buzzer.set(value);
         } catch (IOException e) {
-            logger.severe(String.format("Error when writing data to port D%d", port));
+            logger.severe("Error when writing data to port");
         }
     }
 }

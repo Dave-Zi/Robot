@@ -11,12 +11,12 @@ import static org.mockito.Mockito.*;
 
 public class BuzzerWrapperTest {
 
-    BuzzerWrapper buzzerWrapper;
-    GroveDigitalOut buzzer = mock(GroveDigitalOut.class);
+    private BuzzerWrapper buzzerWrapper;
+    private GroveDigitalOut buzzer = mock(GroveDigitalOut.class);
 
     @Before
-    public void setUp() throws Exception {
-        buzzerWrapper = new BuzzerWrapper(buzzer, 2);
+    public void setUp(){
+        buzzerWrapper = new BuzzerWrapper(buzzer);
     }
 
     @Test

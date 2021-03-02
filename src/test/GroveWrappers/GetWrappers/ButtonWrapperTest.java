@@ -17,8 +17,8 @@ public class ButtonWrapperTest {
     private GroveDigitalIn button = mock(GroveDigitalIn.class);
 
     @Before
-    public void setUp() throws Exception {
-        buttonWrapper = new ButtonWrapper(button, 2);
+    public void setUp(){
+        buttonWrapper = new ButtonWrapper(button);
     }
 
     @Test
@@ -30,12 +30,12 @@ public class ButtonWrapperTest {
     private void released() throws IOException, InterruptedException {
         when(button.get()).thenReturn(false);
         double actual = buttonWrapper.get(1);
-        assertTrue(0.0 == actual);
+        assertEquals(0.0, actual, 0.01);
     }
 
     private void pressed() throws IOException, InterruptedException {
         when(button.get()).thenReturn(true);
         double actual = buttonWrapper.get(1);
-        assertTrue(1.0 == actual);
+        assertEquals(1.0, actual, 0.01);
     }
 }

@@ -17,14 +17,14 @@ public class UltrasonicWrapperTest {
     private GroveUltrasonicRanger ultrasonicRanger = mock(GroveUltrasonicRanger.class);
 
     @Before
-    public void setUp() throws Exception {
-        ultrasonicWrapper = new UltrasonicWrapper(ultrasonicRanger, 2);
+    public void setUp(){
+        ultrasonicWrapper = new UltrasonicWrapper(ultrasonicRanger);
     }
 
     @Test
     public void get() throws IOException {
         when(ultrasonicRanger.get()).thenReturn(0.5);
         double actual = ultrasonicWrapper.get(1);
-        assertTrue(0.5==actual);
+        assertEquals(0.5, actual, 0.01);
     }
 }

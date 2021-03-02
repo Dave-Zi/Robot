@@ -17,8 +17,8 @@ public class TemperatureWrapperTest {
     private GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor = mock(GroveTemperatureAndHumiditySensor.class);
 
     @Before
-    public void setUp() throws Exception {
-        temperatureWrapper = new TemperatureWrapper(temperatureAndHumiditySensor, 0, GroveTemperatureAndHumiditySensor.Type.DHT11);
+    public void setUp(){
+        temperatureWrapper = new TemperatureWrapper(temperatureAndHumiditySensor);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TemperatureWrapperTest {
         when(temperatureAndHumiditySensor.get()).thenReturn(mock(GroveTemperatureAndHumidityValue.class));
         GroveTemperatureAndHumidityValue result = temperatureAndHumiditySensor.get();
         when(result.getTemperature()).thenReturn(30.5);
-        assertTrue(temperature==temperatureWrapper.get(0));
+        assertEquals(temperature, temperatureWrapper.get(0), 0.01);
     }
 
     private void humidity() throws IOException {
@@ -40,7 +40,7 @@ public class TemperatureWrapperTest {
         when(temperatureAndHumiditySensor.get()).thenReturn(mock(GroveTemperatureAndHumidityValue.class));
         GroveTemperatureAndHumidityValue result = temperatureAndHumiditySensor.get();
         when(result.getHumidity()).thenReturn(20.5);
-        assertTrue(humidity==temperatureWrapper.get(1));
+        assertEquals(humidity, temperatureWrapper.get(1), 0.01);
     }
 
 }
