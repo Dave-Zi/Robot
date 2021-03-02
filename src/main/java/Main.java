@@ -1,5 +1,6 @@
 import Boards.GrovePiBoard;
 import Boards.IBoard;
+import Enums.Ev3DrivePort;
 import GroveWrappers.GetWrappers.*;
 import GroveWrappers.SetWrappers.BuzzerWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -35,7 +36,7 @@ public class Main {
         Ev3Board ev3B = ev.getValue();
 //        System.out.println(ev.getKey());
         while (true) {
-            ev3B.drive("A", 0);
+            ev3B.drive(Ev3DrivePort.A, 0);
         }
 
 

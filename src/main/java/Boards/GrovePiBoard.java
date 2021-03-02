@@ -1,8 +1,7 @@
 package Boards;
+
 import Enums.GrovePiPort;
 import Enums.IPortEnums;
-import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
-
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;

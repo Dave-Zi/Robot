@@ -1,4 +1,6 @@
-import java.awt.*;
+package Boards;
+
+import Enums.IPortEnums;
 
 public interface IBoard {
 
