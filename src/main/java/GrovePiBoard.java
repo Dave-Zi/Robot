@@ -1,18 +1,10 @@
-import GroveWrappers.GetWrappers.*;
-import GroveWrappers.SetWrappers.BuzzerWrapper;
+import Enums.GrovePiPort;
+import Enums.IPortEnums;
+import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
-import GroveWrappers.SetWrappers.LedWrapper;
-import GroveWrappers.SetWrappers.RelayWrapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.iot.raspberry.grovepi.GrovePi;
-import org.iot.raspberry.grovepi.devices.GroveTemperatureAndHumiditySensor;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -31,54 +23,31 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     }
 
     @Override
-    public Boolean getBooleanSensorData(String port, int mode) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return null;
-        }
+    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+        GrovePiPort thisPort = (GrovePiPort) port;
 
-        return SensorGetMap.get(port).get(mode) > 0.0;
+        return SensorGetMap.get(thisPort.portName).get(mode) > 0.0;
     }
 
     @Override
-    public Double getDoubleSensorData(String port, int mode) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return null;
-        }
-        return SensorGetMap.get(port).get(mode);
+    public Double getDoubleSensorData(IPortEnums port, int mode) {
+
+        GrovePiPort thisPort = (GrovePiPort) port;
+        return SensorGetMap.get(thisPort.portName).get(mode);
     }
 
     @Override
-    public void setSensorData(String port, boolean value) {
-        if (isPortIllegal(port)) {
-            logger.severe("Illegal port index");
-            return;
-        }
-        SensorSetMap.get(port).set(value);
+    public void setSensorData(IPortEnums port, boolean value) {
+        GrovePiPort thisPort = (GrovePiPort) port;
+        SensorSetMap.get(thisPort.portName).set(value);
     }
 
     @Override
-    public void drive(String port, double speed) {
-
+    public void drive(IPortEnums port, double speed) {
     }
 
     @Override
     public void disconnect() {
 
-    }
-
-    private boolean isPortIllegal(String port) {
-        if (port.length() != 2) {
-            return true;
-        }
-        char portChar = port.charAt(0);
-
-        if (portChar < 'A' || portChar > 'D') {
-            return true;
-        }
-        int portNumber = Integer.valueOf(port.substring(1));
-
-        return portNumber < 0 || portNumber > 8;
     }
 }
