@@ -1,6 +1,5 @@
 package GroveWrappers.GetWrappers;
 
-import org.iot.raspberry.grovepi.GroveDigitalIn;
 import org.iot.raspberry.grovepi.devices.GroveLightSensor;
 import org.junit.Before;
 import org.junit.Test;
