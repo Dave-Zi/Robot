@@ -40,10 +40,13 @@ public class Ev3Board extends EV3 implements IBoard {
 
 
     @Override
+    /*
+      Call spin with the specific port -
+      Ev3 motor ports are : A B C D
+     */
     public void drive(IPortEnums port, double speed) {
         Ev3DrivePort thisPort = (Ev3DrivePort) port;
 
-//        int portInt = Integer.getInteger(port);
         switch (thisPort) {
             case A:
                 spin((int) speed, 0, 0, 0);
