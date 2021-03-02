@@ -1,12 +1,21 @@
 import Boards.IBoard;
 
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Ev3Board extends EV3 implements IBoard {
 
     private Logger logger = Logger.getLogger(EV3.class.getName());
 
-    public Ev3Board(String portName) {
+    Ev3Board(String portName) throws IOException {
         super(portName);
     }
 
@@ -20,13 +29,12 @@ public class Ev3Board extends EV3 implements IBoard {
      * Ev3 sensor ports are 1 2 3 4
      */
     public Double getDoubleSensorData(String port, int mode) {
-        if (port.length() != 1)
-        {
+        if (port.length() != 1) {
             logger.severe("Illegal port index");
             return 0.0;
         }
         int portInt = Integer.getInteger(port);
-        if (portInt < 1 || portInt > 4){
+        if (portInt < 1 || portInt > 4) {
             logger.severe("Illegal port index");
             return 0.0;
         }
@@ -46,27 +54,28 @@ public class Ev3Board extends EV3 implements IBoard {
 
     @Override
     public void drive(String port, double speed) {
-        if (port.length() != 1)
-        {
+        if (port.length() != 1) {
             logger.severe("Illegal port index");
             return;
         }
-        int portInt = Integer.getInteger(port);
-        switch (portInt){
-            case 1:
-                spin((int)speed, 0, 0, 0);
+
+
+//        int portInt = Integer.getInteger(port);
+        switch (port) {
+            case "A":
+                spin((int) speed, 0, 0, 0);
                 break;
 
-            case 2:
-                spin(0, (int)speed, 0, 0);
+            case "B":
+                spin(0, (int) speed, 0, 0);
                 break;
 
-            case 3:
-                spin(0, 0, (int)speed, 0);
+            case "C":
+                spin(0, 0, (int) speed, 0);
                 break;
 
-            case 4:
-                spin(0, 0, 0, (int)speed);
+            case "D":
+                spin(0, 0, 0, (int) speed);
                 break;
         }
     }

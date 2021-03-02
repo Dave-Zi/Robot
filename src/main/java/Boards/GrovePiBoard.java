@@ -23,19 +23,19 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     private Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
 
-    private Map<String, IGroveSensorSetWrapper> SensorSetMap = new HashMap<>();
+    private Map<String, IGroveSensorSetWrapper> SensorSetMap;
 
-    private Map<String, IGroveSensorGetWrapper> SensorGetMap = new HashMap<>();
+    private Map<String, IGroveSensorGetWrapper> SensorGetMap;
 
-    public GrovePiBoard(String path) throws IOException {
+    GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
-
-        ReadJsonToDictionaries(path);
+        SensorGetMap = sensorGetMap;
+        SensorSetMap = sensorSetMap;
     }
 
     @Override
     public Boolean getBooleanSensorData(String port, int mode) {
-        if (isPortIllegal(port)){
+        if (isPortIllegal(port)) {
             logger.severe("Illegal port index");
             return null;
         }
@@ -45,7 +45,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     @Override
     public Double getDoubleSensorData(String port, int mode) {
-        if (isPortIllegal(port)){
+        if (isPortIllegal(port)) {
             logger.severe("Illegal port index");
             return null;
         }
@@ -54,7 +54,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     @Override
     public void setSensorData(String port, boolean value) {
-        if (isPortIllegal(port)){
+        if (isPortIllegal(port)) {
             logger.severe("Illegal port index");
             return;
         }
@@ -71,13 +71,13 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     }
 
-    private boolean isPortIllegal(String port){
-        if (port.length() != 2){
+    private boolean isPortIllegal(String port) {
+        if (port.length() != 2) {
             return true;
         }
         char portChar = port.charAt(0);
 
-        if (portChar < 'A' || portChar > 'D'){
+        if (portChar < 'A' || portChar > 'D') {
             return true;
         }
         int portNumber = Integer.valueOf(port.substring(1));
