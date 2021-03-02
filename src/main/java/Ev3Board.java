@@ -1,21 +1,12 @@
 import Boards.IBoard;
-
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
+
 
 public class Ev3Board extends EV3 implements IBoard {
 
     private Logger logger = Logger.getLogger(EV3.class.getName());
 
-    Ev3Board(String portName) throws IOException {
+    Ev3Board(String portName) {
         super(portName);
     }
 
