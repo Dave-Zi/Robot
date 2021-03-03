@@ -24,26 +24,23 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
-        //your stuff here
-
-//        Map.Entry<String, Ev3Board> ev = Ev3Map.entrySet().iterator().next();
         Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
-//        System.out.println(ev.getKey());
-        ev3B.drive(Ev3DrivePort.B, 10);
-        ev3B.drive(Ev3DrivePort.C, 10);
+
+        ev3B.drive(Ev3DrivePort.A, 100);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ev3B.drive(Ev3DrivePort.B, 0);
-        ev3B.drive(Ev3DrivePort.C, 0);
-
-//        //end program forcefully
-//        EV3 ev3 = new EV3("rfcomm0");
-//        System.exit(0);
+        ev3B.drive(Ev3DrivePort.A, 0);
     }
 
+    /**
+     * reads a json file with the existing boards and their sensors.
+     * @param path of the json file
+     * @return HashMap of all the boards
+     * @throws IOException in case of IO problem when reading the json file
+     */
     public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String path) throws IOException {
         InputStream inputStream = new FileInputStream(path);
         byte[] data = inputStream.readAllBytes();

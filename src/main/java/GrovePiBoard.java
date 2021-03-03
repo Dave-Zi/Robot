@@ -11,10 +11,16 @@ import java.util.logging.Logger;
 public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     private final Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
-
-    private final Map<String, IGroveSensorSetWrapper> sensorSetMap;
-
-    private final Map<String, IGroveSensorGetWrapper> sensorGetMap;
+    /**
+     * Map for the sensors that have set function.
+     * key - port of the sensor, value - the specific sensor
+     */
+    private final Map<String, IGroveSensorSetWrapper> SensorSetMap;
+    /**
+     * Map for the sensors that have get function.
+     * key - port of the sensor, value - the specific sensor
+     */
+    private final Map<String, IGroveSensorGetWrapper> SensorGetMap;
 
     public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
@@ -22,6 +28,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
         this.sensorSetMap = sensorSetMap;
     }
 
+    /**
+     * Take the sensor that is connected to the port 'port' and call its' get function
+     * @param port of the sensor
+     * @param mode of the sensor
+     * @return the result of the get function of the sensor
+     */
     @Override
     public Boolean getBooleanSensorData(IPortEnums port, int mode) {
         GrovePiPort thisPort = (GrovePiPort) port;
@@ -29,6 +41,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
         return sensorGetMap.get(thisPort.portName).get(mode) > 0.0;
     }
 
+    /**
+     * Take the sensor that is connected to the port 'port' and call its' get function
+     * @param port of the sensor
+     * @param mode of the sensor
+     * @return the result of the get function of the sensor
+     */
     @Override
     public Double getDoubleSensorData(IPortEnums port, int mode) {
 
@@ -36,6 +54,9 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
         return sensorGetMap.get(thisPort.portName).get(mode);
     }
 
+    /**
+     * Take the sensor that is connected to the port 'port' and call its' set function
+     */
     @Override
     public void setSensorData(IPortEnums port, boolean value) {
         GrovePiPort thisPort = (GrovePiPort) port;
