@@ -1,6 +1,6 @@
 import Enums.IPortEnums;
 
-interface IBoard {
+public interface IBoard {
 
     Boolean getBooleanSensorData(IPortEnums port, int mode);
 
