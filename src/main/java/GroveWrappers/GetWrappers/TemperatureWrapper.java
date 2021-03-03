@@ -10,11 +10,9 @@ import java.util.logging.Logger;
 public class TemperatureWrapper implements IGroveSensorGetWrapper {
     private Logger logger = Logger.getLogger(TemperatureWrapper.class.getName());
     private GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor;
-    private int port;
 
-    public TemperatureWrapper(GrovePi grovePi, int port, GroveTemperatureAndHumiditySensor.Type dhtType) {
-        temperatureAndHumiditySensor = new GroveTemperatureAndHumiditySensor(grovePi, port, dhtType);
-        this.port = port;
+    public TemperatureWrapper(GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor) {
+        this.temperatureAndHumiditySensor = temperatureAndHumiditySensor;
     }
 
     @Override
@@ -29,7 +27,7 @@ public class TemperatureWrapper implements IGroveSensorGetWrapper {
                     return result.getHumidity();
             }
         } catch (IOException e) {
-            logger.severe(String.format("Error when reading data from port A%d", port));
+            logger.severe("Error when reading data from port");
         }
         return null;
     }

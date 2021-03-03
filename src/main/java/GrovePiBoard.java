@@ -10,22 +10,22 @@ import java.util.logging.Logger;
 
 public class GrovePiBoard extends GrovePi4J implements IBoard {
 
-    private Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
+    private final Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
     /**
      * Map for the sensors that have set function.
      * key - port of the sensor, value - the specific sensor
      */
-    private Map<String, IGroveSensorSetWrapper> SensorSetMap;
+    private final Map<String, IGroveSensorSetWrapper> SensorSetMap;
     /**
      * Map for the sensors that have get function.
      * key - port of the sensor, value - the specific sensor
      */
-    private Map<String, IGroveSensorGetWrapper> SensorGetMap;
+    private final Map<String, IGroveSensorGetWrapper> SensorGetMap;
 
-    GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
+    public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
-        SensorGetMap = sensorGetMap;
-        SensorSetMap = sensorSetMap;
+        this.sensorGetMap = sensorGetMap;
+        this.sensorSetMap = sensorSetMap;
     }
 
     /**
@@ -38,7 +38,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     public Boolean getBooleanSensorData(IPortEnums port, int mode) {
         GrovePiPort thisPort = (GrovePiPort) port;
 
-        return SensorGetMap.get(thisPort.portName).get(mode) > 0.0;
+        return sensorGetMap.get(thisPort.portName).get(mode) > 0.0;
     }
 
     /**
@@ -51,7 +51,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     public Double getDoubleSensorData(IPortEnums port, int mode) {
 
         GrovePiPort thisPort = (GrovePiPort) port;
-        return SensorGetMap.get(thisPort.portName).get(mode);
+        return sensorGetMap.get(thisPort.portName).get(mode);
     }
 
     /**
@@ -60,7 +60,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     @Override
     public void setSensorData(IPortEnums port, boolean value) {
         GrovePiPort thisPort = (GrovePiPort) port;
-        SensorSetMap.get(thisPort.portName).set(value);
+        sensorSetMap.get(thisPort.portName).set(value);
     }
 
     @Override
@@ -69,6 +69,5 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     @Override
     public void disconnect() {
-
     }
 }
