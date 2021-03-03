@@ -1,6 +1,5 @@
-//import Boards.IBoard;
+//import IBoard;
 
-import Boards.IBoard;
 import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import Enums.IPortEnums;

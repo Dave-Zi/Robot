@@ -1,5 +1,3 @@
-package Boards;
-
 import Enums.GrovePiPort;
 import Enums.IPortEnums;
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;

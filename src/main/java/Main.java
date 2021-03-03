@@ -1,5 +1,3 @@
-import Boards.GrovePiBoard;
-import Boards.IBoard;
 import Enums.BoardTypeEnum;
 import Enums.Ev3DrivePort;
 import GroveWrappers.GetWrappers.*;
@@ -31,13 +29,15 @@ public class Main {
 //        Map.Entry<String, Ev3Board> ev = Ev3Map.entrySet().iterator().next();
         Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
 //        System.out.println(ev.getKey());
-        ev3B.drive(Ev3DrivePort.A, 100);
+        ev3B.drive(Ev3DrivePort.B, 10);
+        ev3B.drive(Ev3DrivePort.C, 10);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ev3B.drive(Ev3DrivePort.A, 0);
+        ev3B.drive(Ev3DrivePort.B, 0);
+        ev3B.drive(Ev3DrivePort.C, 0);
 
 //        //end program forcefully
 //        EV3 ev3 = new EV3("rfcomm0");
