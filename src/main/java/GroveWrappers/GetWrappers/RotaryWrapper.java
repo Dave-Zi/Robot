@@ -10,11 +10,9 @@ import java.util.logging.Logger;
 public class RotaryWrapper implements IGroveSensorGetWrapper {
     private Logger logger = Logger.getLogger(RotaryWrapper.class.getName());
     private GroveRotarySensor rotarySensor;
-    private int port;
 
-    public RotaryWrapper(GrovePi grovePi, int port) throws IOException {
-        rotarySensor = new GroveRotarySensor(grovePi, port);
-        this.port = port;
+    public RotaryWrapper(GroveRotarySensor rotarySensor) {
+        this.rotarySensor = rotarySensor;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class RotaryWrapper implements IGroveSensorGetWrapper {
                     return result.getDegrees();
             }
         } catch (IOException e) {
-            logger.severe(String.format("Error when reading data from port A%d", port));
+            logger.severe("Error when reading data from port");
         }
         return null;
     }
