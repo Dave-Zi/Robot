@@ -70,8 +70,8 @@ public class Main {
                     for (Map.Entry<String, String> Ev3Data : Ev3Val.entrySet()) {
                         String port = Ev3Data.getValue();
 //                        Ev3Map.put(port, new Ev3Board(port));
-
-                        Ev3Board newEv3Board = new Ev3Board(port);
+                        EV3 ev3 = new EV3(port);
+                        Ev3Board newEv3Board = new Ev3Board(ev3);
                         if (!boards.containsKey(BoardTypeEnum.EV3)) {
                             boards.put(BoardTypeEnum.EV3, new ArrayList<>());
                         }

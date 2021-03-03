@@ -15,12 +15,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
      * Map for the sensors that have set function.
      * key - port of the sensor, value - the specific sensor
      */
-    private final Map<String, IGroveSensorSetWrapper> SensorSetMap;
+    private final Map<String, IGroveSensorSetWrapper> sensorSetMap;
     /**
      * Map for the sensors that have get function.
      * key - port of the sensor, value - the specific sensor
      */
-    private final Map<String, IGroveSensorGetWrapper> SensorGetMap;
+    private final Map<String, IGroveSensorGetWrapper> sensorGetMap;
 
     public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
