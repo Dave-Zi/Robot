@@ -25,14 +25,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
         Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
+        GrovePi grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 
-        ev3B.drive(Ev3DrivePort.A, 100);
+        ev3B.drive(Ev3DrivePort.B, 100);
+        ev3B.drive(Ev3DrivePort.C, 100);
+
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ev3B.drive(Ev3DrivePort.A, 0);
+        ev3B.drive(Ev3DrivePort.B, 0);
+        ev3B.drive(Ev3DrivePort.C, 0);
     }
 
     /**

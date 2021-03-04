@@ -1,22 +1,28 @@
 import Enums.GrovePiPort;
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
+import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.api.mockito.PowerMockito;
 
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 public class GrovePiBoardTest {
-
+    private Map sensorSetMap;
     private GrovePiBoard grovePiBoard;
 
     @Before
-    public void setUp() {
-        grovePiBoard = mock(GrovePiBoard.class);
+    public void setUp() throws Exception {
+        Map sensorGetMap = mock(Map.class);
+        sensorSetMap = mock(Map.class);
+//        GrovePi grovePiMock = PowerMockito.mock(GrovePi.class);
+        grovePiBoard = PowerMockito.mock(GrovePiBoard.class);
+        whenNew(GrovePiBoard.class).withArguments(sensorGetMap, sensorSetMap).thenReturn(grovePiBoard);
     }
 
     @Test
@@ -55,5 +61,10 @@ public class GrovePiBoardTest {
 
     @Test
     public void testSetSensorData() {
+        when(sensorSetMap.get(GrovePiPort.D2)).thenReturn(PowerMockito.mock(IGroveSensorSetWrapper.class));
+        IGroveSensorSetWrapper setWrapper = (IGroveSensorSetWrapper) sensorSetMap.get(GrovePiPort.D2);
+        PowerMockito.doNothing().when(setWrapper).set(true);
+        grovePiBoard.setSensorData(GrovePiPort.D2, true);
+        verify(grovePiBoard, times(1)).setSensorData(GrovePiPort.D2, true);
     }
 }
