@@ -16,7 +16,7 @@ public class ButtonWrapperTest {
     private GroveDigitalIn button = mock(GroveDigitalIn.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         buttonWrapper = new ButtonWrapper(button);
     }
 

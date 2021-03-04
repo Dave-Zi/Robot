@@ -17,7 +17,7 @@ public class RotaryWrapperTest {
     private GroveRotarySensor rotarySensor = mock(GroveRotarySensor.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         rotaryWrapper = new RotaryWrapper(rotarySensor);
     }
 

@@ -16,7 +16,7 @@ public class UltrasonicWrapperTest {
     private GroveUltrasonicRanger ultrasonicRanger = mock(GroveUltrasonicRanger.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         ultrasonicWrapper = new UltrasonicWrapper(ultrasonicRanger);
     }
 
