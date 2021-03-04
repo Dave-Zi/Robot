@@ -90,8 +90,6 @@ public class Main {
 
         Map<String, IGroveSensorGetWrapper> sensorGetMap = new HashMap<>();
 
-        GrovePi4J grovePi4J = new GrovePi4J();
-
         for (Map.Entry<String, String> sensorData : entryVal.entrySet()) {
             int portNumber = Integer.valueOf(sensorData.getKey().substring(1));
             switch (sensorData.getValue()) {
