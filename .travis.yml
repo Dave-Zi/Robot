@@ -1,1 +1,6 @@
 language: java
+before_install:
+  - wget -P . https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/groupId/MindControl/1.0-SNAPSHOT/MindControl-1.0-20210303.111836-1.jar
+  - wget -P . https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/org/iot/raspberry/GrovePi-pi4j/0.1.0-SNAPSHOT/GrovePi-pi4j-0.1.0-20210303.112627-1.jar
+  - wget -P . https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/org/iot/raspberry/GrovePi-spec/0.1.0-SNAPSHOT/GrovePi-spec-0.1.0-20210303.112813-1.jar
+  - mvn validate
