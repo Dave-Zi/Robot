@@ -1,6 +1,6 @@
 package Enums;
 
-public enum Ev3DrivePort implements IPortEnums {
+public enum Ev3DrivePort {
     A('A'),
     B('B'),
     C('C'),

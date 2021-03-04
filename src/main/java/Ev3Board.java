@@ -1,9 +1,9 @@
+import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
-import Enums.IPortEnums;
 
 import java.util.logging.Logger;
 
-public class Ev3Board implements IBoard {
+public class Ev3Board implements IBoard<Ev3SensorPort, Ev3DrivePort> {
 
     private Logger logger = Logger.getLogger(EV3.class.getName());
 
@@ -23,9 +23,8 @@ public class Ev3Board implements IBoard {
     /*
      * Ev3 sensor ports are 1 2 3 4
      */
-    public Double getDoubleSensorData(IPortEnums port, int mode) {
-        Ev3SensorPort thisPort = (Ev3SensorPort) port;
-        Float value = ev3.sensor(thisPort.portNumber, mode);
+    public Double getDoubleSensorData(Ev3SensorPort port, int mode) {
+        Float value = ev3.sensor(port.portNumber, mode);
         if (value == null) {
             return null;
         } else {
@@ -34,22 +33,21 @@ public class Ev3Board implements IBoard {
     }
 
     @Override
-    public void setSensorData(IPortEnums port, boolean value) {
+    public void setSensorData(Ev3SensorPort port, boolean value) {
         ev3.tone(440, 50, 200);
     }
 
     @Override
-    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+    public Boolean getBooleanSensorData(Ev3SensorPort port, int mode) {
         return null;
     }
-
 
     @Override
     /*
       Call spin with the specific port -
       Ev3 motor ports are : A B C D
      */
-    public void drive(IPortEnums[] port, double[] speed) {
+    public void drive(Ev3DrivePort[] port, double[] speed) {
         ev3.spin((int) speed[0], (int) speed[1], (int) speed[2], (int) speed[3]);
     }
 }
