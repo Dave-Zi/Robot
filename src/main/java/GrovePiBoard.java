@@ -66,7 +66,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
     }
 
     @Override
-    public void drive(IPortEnums port, double speed) {
+    public void drive(IPortEnums[] port, double[] speed) {
     }
 
     @Override
