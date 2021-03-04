@@ -37,6 +37,7 @@ public class Main {
 
     /**
      * reads a json file with the existing boards and their sensors.
+     *
      * @param path of the json file
      * @return HashMap of all the boards
      * @throws IOException in case of IO problem when reading the json file

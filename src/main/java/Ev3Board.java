@@ -31,7 +31,6 @@ public class Ev3Board implements IBoard {
 
     @Override
     public void setSensorData(IPortEnums port, boolean value) {
-
         ev3.tone(440, 50, 200);
     }
 
