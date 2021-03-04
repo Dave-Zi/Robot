@@ -1,4 +1,3 @@
-import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +39,7 @@ public class Ev3BoardTest {
     @Test
     public void testDrive() {
         doNothing().when(ev3Mock).spin(100, 0, 0, 0);
-        ev3Board.drive(Ev3DrivePort.A, 100);
+        ev3Board.drive(null, new double[]{100, 0, 0, 0});
         verify(ev3Mock, times(1)).spin(100, 0, 0, 0);
     }
 }
