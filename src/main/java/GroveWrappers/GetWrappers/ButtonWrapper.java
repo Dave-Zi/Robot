@@ -10,11 +10,9 @@ public class ButtonWrapper implements IGroveSensorGetWrapper {
 
     private Logger logger = Logger.getLogger(ButtonWrapper.class.getName());
     private GroveDigitalIn button;
-    private int port;
 
-    public ButtonWrapper(GrovePi grovePi, int port) throws IOException {
-        button = grovePi.getDigitalIn(port);
-        this.port = port;
+    public ButtonWrapper(GroveDigitalIn button){
+        this.button = button;
     }
 
     @Override
@@ -22,7 +20,7 @@ public class ButtonWrapper implements IGroveSensorGetWrapper {
         try {
             return button.get() ? 1.0 : 0;
         } catch (IOException | InterruptedException e) {
-            logger.severe(String.format("Error when reading data from port D%d", port));
+            logger.severe("Error when reading data from port");
             return null;
         }
     }

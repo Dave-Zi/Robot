@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 public class LedWrapper implements IGroveSensorSetWrapper {
     private Logger logger = Logger.getLogger(LedWrapper.class.getName());
     private GroveLed led;
-    private int port;
 
-    public LedWrapper(GrovePi grovePi, int port) throws IOException {
-        led = new GroveLed(grovePi, port);
-        this.port = port;
+    public LedWrapper(GroveLed led){
+        this.led = led;
     }
 
     @Override
@@ -21,7 +19,7 @@ public class LedWrapper implements IGroveSensorSetWrapper {
         try {
             led.set(value);
         } catch (IOException e) {
-            logger.severe(String.format("Error when writing data to port D%d", port));
+            logger.severe("Error when writing data to port");
         }
     }
 }
