@@ -91,22 +91,11 @@
     </dependencies>
 
     <repositories>
-        <repository>
-            <id>com.MindControl.code</id>
-            <name>MindControl</name>
-            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/groupId/MindControl/</url>
-        </repository>
 
         <repository>
-            <id>org.iot.raspberry</id>
-            <name>GrovePi-spec</name>
-            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/org/iot/raspberry/GrovePi-spec/</url>
-        </repository>
-
-        <repository>
-            <id>org.iot.raspberry</id>
-            <name>GrovePi-pi4j</name>
-            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/org/iot/raspberry/GrovePi-pi4j/</url>
+            <id>project.mymavenrepository</id>
+            <name>mymavenrepository</name>
+            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
         </repository>
 
     </repositories>
