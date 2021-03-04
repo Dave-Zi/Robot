@@ -39,7 +39,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.MindControl.code</groupId>
+            <groupId>org.iot</groupId>
             <artifactId>MindControl</artifactId>
             <version>0.1</version>
         </dependency>
