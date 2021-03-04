@@ -20,7 +20,6 @@ public class GrovePiBoardTest {
     public void setUp() throws Exception {
         Map sensorGetMap = mock(Map.class);
         sensorSetMap = mock(Map.class);
-//        GrovePi grovePiMock = PowerMockito.mock(GrovePi.class);
         grovePiBoard = PowerMockito.mock(GrovePiBoard.class);
         whenNew(GrovePiBoard.class).withArguments(sensorGetMap, sensorSetMap).thenReturn(grovePiBoard);
     }

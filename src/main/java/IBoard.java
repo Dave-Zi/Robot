@@ -8,7 +8,7 @@ public interface IBoard {
 
     void setSensorData(IPortEnums port, boolean value);
 
-    void drive(IPortEnums port, double speed);
+    void drive(IPortEnums[] port, double[] speed);
 
     void disconnect();
 }

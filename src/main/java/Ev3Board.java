@@ -1,4 +1,3 @@
-import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import Enums.IPortEnums;
 
@@ -26,7 +25,12 @@ public class Ev3Board implements IBoard {
      */
     public Double getDoubleSensorData(IPortEnums port, int mode) {
         Ev3SensorPort thisPort = (Ev3SensorPort) port;
-        return Double.valueOf(ev3.sensor(thisPort.portNumber, mode));
+        Float value = ev3.sensor(thisPort.portNumber, mode);
+        if (value == null) {
+            return null;
+        } else {
+            return Double.valueOf(value);
+        }
     }
 
     @Override
@@ -45,25 +49,7 @@ public class Ev3Board implements IBoard {
       Call spin with the specific port -
       Ev3 motor ports are : A B C D
      */
-    public void drive(IPortEnums port, double speed) {
-        Ev3DrivePort thisPort = (Ev3DrivePort) port;
-
-        switch (thisPort) {
-            case A:
-                ev3.spin((int) speed, 0, 0, 0);
-                break;
-
-            case B:
-                ev3.spin(0, (int) speed, 0, 0);
-                break;
-
-            case C:
-                ev3.spin(0, 0, (int) speed, 0);
-                break;
-
-            case D:
-                ev3.spin(0, 0, 0, (int) speed);
-                break;
-        }
+    public void drive(IPortEnums[] port, double[] speed) {
+        ev3.spin((int) speed[0], (int) speed[1], (int) speed[2], (int) speed[3]);
     }
 }
