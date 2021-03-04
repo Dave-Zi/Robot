@@ -37,6 +37,7 @@ public class Main {
 
     /**
      * reads a json file with the existing boards and their sensors.
+     *
      * @param path of the json file
      * @return HashMap of all the boards
      * @throws IOException in case of IO problem when reading the json file
@@ -88,6 +89,8 @@ public class Main {
         Map<String, IGroveSensorSetWrapper> sensorSetMap = new HashMap<>();
 
         Map<String, IGroveSensorGetWrapper> sensorGetMap = new HashMap<>();
+
+        GrovePi4J grovePi4J = new GrovePi4J();
 
         for (Map.Entry<String, String> sensorData : entryVal.entrySet()) {
             int portNumber = Integer.valueOf(sensorData.getKey().substring(1));

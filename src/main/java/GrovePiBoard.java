@@ -22,7 +22,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
      */
     private final Map<String, IGroveSensorGetWrapper> sensorGetMap;
 
-    public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
+    GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
         this.sensorGetMap = sensorGetMap;
         this.sensorSetMap = sensorSetMap;
@@ -30,6 +30,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     /**
      * Take the sensor that is connected to the port 'port' and call its' get function
+     *
      * @param port of the sensor
      * @param mode of the sensor
      * @return the result of the get function of the sensor
@@ -43,6 +44,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
 
     /**
      * Take the sensor that is connected to the port 'port' and call its' get function
+     *
      * @param port of the sensor
      * @param mode of the sensor
      * @return the result of the get function of the sensor
