@@ -88,8 +88,27 @@
             <scope>test</scope>
         </dependency>
 
-
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>groupId</id>
+            <name>MindControl</name>
+            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
+        </repository>
+
+        <repository>
+            <id>org.iot.raspberry</id>
+            <name>GrovePi-spec</name>
+            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
+        </repository>
+
+        <repository>
+            <id>org.iot.raspberry</id>
+            <name>GrovePi-pi4j</name>
+            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
+        </repository>
+
+    </repositories>
 
 </project>
