@@ -1,14 +1,12 @@
-import Enums.IPortEnums;
+public interface IBoard<SensorPortType, MotorPortType> {
 
-public interface IBoard {
+    Boolean getBooleanSensorData(SensorPortType port, int mode);
 
-    Boolean getBooleanSensorData(IPortEnums port, int mode);
+    Double getDoubleSensorData(SensorPortType port, int mode);
 
-    Double getDoubleSensorData(IPortEnums port, int mode);
+    void setSensorData(SensorPortType port, boolean value);
 
-    void setSensorData(IPortEnums port, boolean value);
-
-    void drive(IPortEnums[] port, double[] speed);
+    void drive(MotorPortType[] port, double[] speed);
 
     void disconnect();
 }

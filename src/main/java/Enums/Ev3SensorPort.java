@@ -1,6 +1,6 @@
 package Enums;
 
-public enum Ev3SensorPort implements IPortEnums {
+public enum Ev3SensorPort {
     _1(1),
     _2(2),
     _3(3),

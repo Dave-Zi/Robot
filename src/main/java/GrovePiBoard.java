@@ -1,5 +1,4 @@
 import Enums.GrovePiPort;
-import Enums.IPortEnums;
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
@@ -8,7 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class GrovePiBoard extends GrovePi4J implements IBoard {
+public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, GrovePiPort> {
 
     private final Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
     /**
@@ -36,10 +35,8 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
      * @return the result of the get function of the sensor
      */
     @Override
-    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
-        GrovePiPort thisPort = (GrovePiPort) port;
-
-        return sensorGetMap.get(thisPort.portName).get(mode) > 0.0;
+    public Boolean getBooleanSensorData(GrovePiPort port, int mode) {
+        return sensorGetMap.get(port.portName).get(mode) > 0.0;
     }
 
     /**
@@ -50,23 +47,20 @@ public class GrovePiBoard extends GrovePi4J implements IBoard {
      * @return the result of the get function of the sensor
      */
     @Override
-    public Double getDoubleSensorData(IPortEnums port, int mode) {
-
-        GrovePiPort thisPort = (GrovePiPort) port;
-        return sensorGetMap.get(thisPort.portName).get(mode);
+    public Double getDoubleSensorData(GrovePiPort port, int mode) {
+        return sensorGetMap.get(port.portName).get(mode);
     }
 
     /**
      * Take the sensor that is connected to the port 'port' and call its' set function
      */
     @Override
-    public void setSensorData(IPortEnums port, boolean value) {
-        GrovePiPort thisPort = (GrovePiPort) port;
-        sensorSetMap.get(thisPort.portName).set(value);
+    public void setSensorData(GrovePiPort port, boolean value) {
+        sensorSetMap.get(port.portName).set(value);
     }
 
     @Override
-    public void drive(IPortEnums[] port, double[] speed) {
+    public void drive(GrovePiPort[] port, double[] speed) {
     }
 
     @Override
