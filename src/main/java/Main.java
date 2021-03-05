@@ -72,7 +72,7 @@ public class Main {
      * reads a json file with the existing boards and their sensors.
      *
      * @param path of the json file
-     * @return HashMap of all the boards
+     * @return HashMap of all the boards from the json
      * @throws IOException in case of IO problem when reading the json file
      */
     public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String path) throws IOException {
