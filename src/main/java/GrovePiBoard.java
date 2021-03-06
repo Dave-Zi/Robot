@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, GrovePiPort> {
+public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
 
     private final Logger logger = Logger.getLogger(GrovePiBoard.class.getName());
     /**
@@ -60,7 +60,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, Grove
     }
 
     @Override
-    public void drive(GrovePiPort[] port, double[] speed) {
+    public void drive(Map<GrovePiPort, Double> speeds) {
     }
 
     @Override
@@ -69,11 +69,11 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, Grove
 
     //------------- getters -------------//
 
-    public Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
+    Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
         return sensorSetMap;
     }
 
-    public Map<String, IGroveSensorGetWrapper> getSensorGetMap() {
+    Map<String, IGroveSensorGetWrapper> getSensorGetMap() {
         return sensorGetMap;
     }
 
