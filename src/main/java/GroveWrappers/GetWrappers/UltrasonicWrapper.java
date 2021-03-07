@@ -1,6 +1,5 @@
 package GroveWrappers.GetWrappers;
 
-import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.GroveUltrasonicRanger;
 
 import java.io.IOException;

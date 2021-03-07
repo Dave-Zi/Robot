@@ -1,6 +1,6 @@
 package Enums;
 
-public enum GrovePiPort {
+public enum GrovePiPort implements IPortEnums {
     A0("A0"),
     A1("A1"),
     A2("A2"),
