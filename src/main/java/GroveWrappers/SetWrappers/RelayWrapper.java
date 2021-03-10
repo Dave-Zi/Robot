@@ -1,6 +1,5 @@
 package GroveWrappers.SetWrappers;
 
-import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.GroveRelay;
 
 import java.io.IOException;
@@ -15,11 +14,13 @@ public class RelayWrapper implements IGroveSensorSetWrapper {
     }
 
     @Override
-    public void set(boolean value) {
+    public boolean set(boolean value) {
         try {
             relay.set(value);
+            return true;
         } catch (IOException e) {
             logger.severe("Error when writing data to port");
+            return false;
         }
     }
 }
