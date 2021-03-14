@@ -14,12 +14,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, Grove
      * Map for the sensors that have set function.
      * key - port of the sensor, value - the specific sensor
      */
-    private final Map<String, IGroveSensorSetWrapper> sensorSetMap;
+    private Map<String, IGroveSensorSetWrapper> sensorSetMap;
     /**
      * Map for the sensors that have get function.
      * key - port of the sensor, value - the specific sensor
      */
-    private final Map<String, IGroveSensorGetWrapper> sensorGetMap;
+    private Map<String, IGroveSensorGetWrapper> sensorGetMap;
 
     GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
@@ -55,8 +55,8 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, Grove
      * Take the sensor that is connected to the port 'port' and call its' set function
      */
     @Override
-    public void setSensorData(GrovePiPort port, boolean value) {
-        sensorSetMap.get(port.portName).set(value);
+    public Boolean setSensorData(GrovePiPort port, boolean value) {
+        return sensorSetMap.get(port.portName).set(value);
     }
 
     @Override
@@ -69,12 +69,16 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort, Grove
 
     //------------- getters -------------//
 
-    public Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
+    Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
         return sensorSetMap;
     }
 
-    public Map<String, IGroveSensorGetWrapper> getSensorGetMap() {
+    Map<String, IGroveSensorGetWrapper> getSensorGetMap() {
         return sensorGetMap;
     }
+
+    void setSensorSetMap(Map<String, IGroveSensorSetWrapper> sensorSetMap){ this.sensorSetMap = sensorSetMap;}
+
+    void setSensorGetMap(Map<String, IGroveSensorGetWrapper> sensorGetMap){ this.sensorGetMap = sensorGetMap;}
 
 }

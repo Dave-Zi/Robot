@@ -33,8 +33,9 @@ public class Ev3Board implements IBoard<Ev3SensorPort, Ev3DrivePort> {
     }
 
     @Override
-    public void setSensorData(Ev3SensorPort port, boolean value) {
+    public Boolean setSensorData(Ev3SensorPort port, boolean value) {
         ev3.tone(440, 50, 200);
+        return true;
     }
 
     @Override
