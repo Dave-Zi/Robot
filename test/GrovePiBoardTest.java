@@ -3,20 +3,17 @@ import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({GrovePiBoard.class})
 public class GrovePiBoardTest {
 
@@ -32,7 +29,7 @@ public class GrovePiBoardTest {
         sensorGetMap.put("A1",mock(IGroveSensorGetWrapper.class));
         sensorSetMap.put("D2",mock(IGroveSensorSetWrapper.class));
 
-        grovePiBoard = PowerMockito.mock(GrovePiBoard.class);
+        grovePiBoard = Mockito.mock(GrovePiBoard.class);
 
         doCallRealMethod().when(grovePiBoard).setSensorGetMap(sensorGetMap);
         doCallRealMethod().when(grovePiBoard).setSensorSetMap(sensorSetMap);

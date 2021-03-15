@@ -3,19 +3,14 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.GroveDigitalOut;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.powermock.api.mockito.PowerMockito.spy;
 
-@RunWith(PowerMockRunner.class)
 @PrepareForTest({GroveDigitalOut.class})
 public class BuzzerWrapperTest {
 
@@ -24,8 +19,8 @@ public class BuzzerWrapperTest {
 
     @Before
     public void setUp() {
-        buzzerMock = PowerMockito.mock(GroveDigitalOut.class);
-        buzzerWrapperMock = spy(new BuzzerWrapper(buzzerMock));
+        buzzerMock = Mockito.mock(GroveDigitalOut.class);
+        buzzerWrapperMock = Mockito.spy(new BuzzerWrapper(buzzerMock));
     }
 
     @Test
