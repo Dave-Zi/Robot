@@ -8,7 +8,7 @@ public interface IBoard<BoardPortType extends IPortEnums> {
 
     Double getDoubleSensorData(BoardPortType port, int mode);
 
-    void setSensorData(BoardPortType port, boolean value);
+    Boolean setSensorData(BoardPortType port, boolean value);
 
     void drive(Map<BoardPortType, Double> speeds);
 
