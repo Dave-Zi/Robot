@@ -7,9 +7,11 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @PrepareForTest({GroveLed.class})
 public class LedWrapperTest {
@@ -21,13 +23,20 @@ public class LedWrapperTest {
     public void setUp() {
         ledMock = Mockito.mock(GroveLed.class);
         ledWrapperMock = Mockito.spy(new LedWrapper(ledMock));
+        ledWrapperMock.setLogger(Mockito.mock(Logger.class));
     }
 
     @Test
     public void testSetFailed() throws IOException {
         Mockito.doThrow(new IOException()).when(ledMock).set(true);
+        disableLogger();
         boolean actual = ledWrapperMock.set(true);
         assertFalse(actual);
+    }
+
+    private void disableLogger() {
+        Logger logger = ledWrapperMock.getLogger();
+        Mockito.doNothing().when(logger).severe(anyString());
     }
 
     @Test

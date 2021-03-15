@@ -6,10 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class TemperatureWrapperTest {
 
@@ -19,6 +21,7 @@ public class TemperatureWrapperTest {
     @Before
     public void setUp() {
         temperatureWrapper = new TemperatureWrapper(temperatureAndHumiditySensor);
+        temperatureWrapper.setLogger(mock(Logger.class));
     }
 
     @Test
@@ -39,4 +42,10 @@ public class TemperatureWrapperTest {
         assertEquals(humidity, temperatureWrapper.get(1), 0.01);
     }
 
+    @Test
+    public void testGetFailed() throws IOException {
+        when(temperatureAndHumiditySensor.get()).thenThrow(new IOException());
+        doNothing().when(temperatureWrapper.getLogger()).severe(anyString());
+        assertNull(temperatureWrapper.get(0));
+    }
 }

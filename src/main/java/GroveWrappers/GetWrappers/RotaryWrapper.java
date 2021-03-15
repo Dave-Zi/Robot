@@ -1,6 +1,5 @@
 package GroveWrappers.GetWrappers;
 
-import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.GroveRotarySensor;
 import org.iot.raspberry.grovepi.devices.GroveRotaryValue;
 
@@ -34,4 +33,8 @@ public class RotaryWrapper implements IGroveSensorGetWrapper {
         }
         return null;
     }
+
+    public void setLogger(Logger logger){ this.logger=logger; }
+
+    public Logger getLogger(){ return this.logger; }
 }

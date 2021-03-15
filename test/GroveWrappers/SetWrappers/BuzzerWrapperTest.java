@@ -7,9 +7,11 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @PrepareForTest({GroveDigitalOut.class})
 public class BuzzerWrapperTest {
@@ -21,13 +23,21 @@ public class BuzzerWrapperTest {
     public void setUp() {
         buzzerMock = Mockito.mock(GroveDigitalOut.class);
         buzzerWrapperMock = Mockito.spy(new BuzzerWrapper(buzzerMock));
+//        Mockito.doCallRealMethod().when(buzzerWrapperMock).setLogger(Mockito.mock(Logger.class));
+        buzzerWrapperMock.setLogger(Mockito.mock(Logger.class));
     }
 
     @Test
     public void testSetFailed() throws IOException {
         Mockito.doThrow(new IOException()).when(buzzerMock).set(true);
+        disableLogger();
         boolean actual = buzzerWrapperMock.set(true);
         assertFalse(actual);
+    }
+
+    private void disableLogger() {
+        Logger logger = buzzerWrapperMock.getLogger();
+        Mockito.doNothing().when(logger).severe(anyString());
     }
 
     @Test
