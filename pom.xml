@@ -88,7 +88,7 @@
         <repository>
             <id>project.mymavenrepository</id>
             <name>mymavenrepository</name>
-            <url>${myMavenRepoReadUrl}</url>
+            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
         </repository>
 
     </repositories>
