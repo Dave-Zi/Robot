@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class Ev3BoardTest {
@@ -31,8 +30,8 @@ public class Ev3BoardTest {
     @Test
     public void testSetSensorData() {
         doNothing().when(ev3Mock).tone(440, 50, 200);
-        ev3Board.setSensorData(Ev3SensorPort._1, true);
-        verify(ev3Mock, times(1)).tone(440, 50, 200);
+        boolean actual = ev3Board.setSensorData(Ev3SensorPort._1, true);
+        assertTrue(actual);
     }
 
     @Test

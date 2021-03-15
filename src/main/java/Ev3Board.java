@@ -42,8 +42,9 @@ public class Ev3Board implements IBoard<IEv3Port> {
     }
 
     @Override
-    public void setSensorData(IEv3Port port, boolean value) {
+    public Boolean setSensorData(IEv3Port  port, boolean value) {
         ev3.tone(440, 50, 200);
+        return true;
     }
 
     @Override

@@ -6,10 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class RotaryWrapperTest {
 
@@ -19,6 +21,7 @@ public class RotaryWrapperTest {
     @Before
     public void setUp() {
         rotaryWrapper = new RotaryWrapper(rotarySensor);
+        rotaryWrapper.setLogger(mock(Logger.class));
     }
 
     @Test
@@ -46,5 +49,12 @@ public class RotaryWrapperTest {
         GroveRotaryValue result = rotarySensor.get();
         when(result.getDegrees()).thenReturn(2.0);
         assertEquals(degrees, rotaryWrapper.get(2), 0.01);
+    }
+
+    @Test
+    public void testGetFailed() throws IOException {
+        when(rotarySensor.get()).thenThrow(new IOException());
+        doNothing().when(rotaryWrapper.getLogger()).severe(anyString());
+        assertNull(rotaryWrapper.get(0));
     }
 }

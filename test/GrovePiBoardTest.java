@@ -3,67 +3,70 @@ import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+@PrepareForTest({GrovePiBoard.class})
 public class GrovePiBoardTest {
-    private Map sensorSetMap;
+
     private GrovePiBoard grovePiBoard;
 
     @Before
-    public void setUp() throws Exception {
-        Map sensorGetMap = mock(Map.class);
-        sensorSetMap = mock(Map.class);
-        grovePiBoard = PowerMockito.mock(GrovePiBoard.class);
-        whenNew(GrovePiBoard.class).withArguments(sensorGetMap, sensorSetMap).thenReturn(grovePiBoard);
+    public void setUp() {
+
+        Map<String, IGroveSensorGetWrapper> sensorGetMap = new HashMap<>();
+        Map<String, IGroveSensorSetWrapper> sensorSetMap = new HashMap<>();
+
+        sensorGetMap.put("A0",mock(IGroveSensorGetWrapper.class));
+        sensorGetMap.put("A1",mock(IGroveSensorGetWrapper.class));
+        sensorSetMap.put("D2",mock(IGroveSensorSetWrapper.class));
+
+        grovePiBoard = Mockito.mock(GrovePiBoard.class);
+
+        doCallRealMethod().when(grovePiBoard).setSensorGetMap(sensorGetMap);
+        doCallRealMethod().when(grovePiBoard).setSensorSetMap(sensorSetMap);
+
+        grovePiBoard.setSensorGetMap(sensorGetMap);
+        grovePiBoard.setSensorSetMap(sensorSetMap);
     }
 
     @Test
     public void testGetBooleanSensorData() {
-        when(grovePiBoard.getSensorGetMap()).thenReturn(mock(Map.class));
-        Map<String, IGroveSensorGetWrapper> groveSensorGetWrapperMap = grovePiBoard.getSensorGetMap();
+        when(grovePiBoard.getSensorGetMap()).thenCallRealMethod();
+        when(grovePiBoard.getSensorGetMap().get("A0")).thenCallRealMethod();
+        when(grovePiBoard.getSensorGetMap().get("A0").get(1)).thenReturn(0.5);
 
-        when(groveSensorGetWrapperMap.get("A0")).thenReturn(mock(IGroveSensorGetWrapper.class));
-        IGroveSensorGetWrapper sensorGetWrapper = groveSensorGetWrapperMap.get("A0");
-
-        when(sensorGetWrapper.get(1)).thenReturn(0.5);
-        boolean bodyResult = grovePiBoard.getSensorGetMap().get("A0").get(1) > 0;
-
-        when(grovePiBoard.getBooleanSensorData(GrovePiPort.A0, 1)).thenReturn(bodyResult);
         boolean actual = grovePiBoard.getBooleanSensorData(GrovePiPort.A0, 1);
-
-        assertTrue(actual);
+        assertFalse(actual);
     }
 
     @Test
     public void testGetDoubleSensorData() {
-        when(grovePiBoard.getSensorGetMap()).thenReturn(mock(Map.class));
-        Map<String, IGroveSensorGetWrapper> groveSensorGetWrapperMap = grovePiBoard.getSensorGetMap();
+        when(grovePiBoard.getSensorGetMap()).thenCallRealMethod();
+        when(grovePiBoard.getSensorGetMap().get("A1")).thenCallRealMethod();
+        when(grovePiBoard.getSensorGetMap().get("A1").get(1)).thenReturn(0.5);
+        when(grovePiBoard.getDoubleSensorData(GrovePiPort.A1, 1)).thenCallRealMethod();
 
-        when(groveSensorGetWrapperMap.get("A1")).thenReturn(mock(IGroveSensorGetWrapper.class));
-        IGroveSensorGetWrapper sensorGetWrapper = groveSensorGetWrapperMap.get("A1");
-
-        when(sensorGetWrapper.get(1)).thenReturn(0.5);
-        double bodyResult = grovePiBoard.getSensorGetMap().get("A1").get(1);
-
-        when(grovePiBoard.getDoubleSensorData(GrovePiPort.A1, 1)).thenReturn(bodyResult);
         double actual = grovePiBoard.getDoubleSensorData(GrovePiPort.A1, 1);
-
         assertEquals(0.5, actual, 0.01);
     }
 
     @Test
     public void testSetSensorData() {
-        when(sensorSetMap.get(GrovePiPort.D2)).thenReturn(PowerMockito.mock(IGroveSensorSetWrapper.class));
-        IGroveSensorSetWrapper setWrapper = (IGroveSensorSetWrapper) sensorSetMap.get(GrovePiPort.D2);
-        PowerMockito.doNothing().when(setWrapper).set(true);
-        grovePiBoard.setSensorData(GrovePiPort.D2, true);
-        verify(grovePiBoard, times(1)).setSensorData(GrovePiPort.D2, true);
+        when(grovePiBoard.getSensorSetMap()).thenCallRealMethod();
+        when(grovePiBoard.getSensorSetMap().get("D2")).thenCallRealMethod();
+        when(grovePiBoard.getSensorSetMap().get("D2").set(true)).thenReturn(true);
+        when(grovePiBoard.setSensorData(GrovePiPort.D2, true)).thenCallRealMethod();
+
+        boolean actual = grovePiBoard.setSensorData(GrovePiPort.D2, true);
+        assertTrue(actual);
     }
 }

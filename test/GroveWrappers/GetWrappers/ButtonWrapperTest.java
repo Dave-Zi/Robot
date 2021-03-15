@@ -5,10 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.*;
 
 public class ButtonWrapperTest {
 
@@ -18,6 +19,7 @@ public class ButtonWrapperTest {
     @Before
     public void setUp() {
         buttonWrapper = new ButtonWrapper(button);
+        buttonWrapper.setLogger(mock(Logger.class));
     }
 
     @Test
@@ -32,5 +34,12 @@ public class ButtonWrapperTest {
         when(button.get()).thenReturn(true);
         double actual = buttonWrapper.get(1);
         assertEquals(1.0, actual, 0.01);
+    }
+
+    @Test
+    public void testGetFailed() throws IOException, InterruptedException {
+        when(button.get()).thenThrow(new IOException());
+        doNothing().when(buttonWrapper.getLogger()).severe(anyString());
+        assertNull(buttonWrapper.get(1));
     }
 }

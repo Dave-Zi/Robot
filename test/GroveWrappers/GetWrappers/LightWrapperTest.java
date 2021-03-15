@@ -5,10 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class LightWrapperTest {
 
@@ -18,6 +20,7 @@ public class LightWrapperTest {
     @Before
     public void setUp() {
         lightWrapper = new LightWrapper(lightSensor);
+        lightWrapper.setLogger(mock(Logger.class));
     }
 
     @Test
@@ -25,5 +28,12 @@ public class LightWrapperTest {
         when(lightSensor.get()).thenReturn(0.5);
         double actual = lightWrapper.get(0);
         assertEquals(0.5, actual, 0.01);
+    }
+
+    @Test
+    public void testGetFailed() throws IOException {
+        when(lightSensor.get()).thenThrow(new IOException());
+        doNothing().when(lightWrapper.getLogger()).severe(anyString());
+        assertNull(lightWrapper.get(0));
     }
 }

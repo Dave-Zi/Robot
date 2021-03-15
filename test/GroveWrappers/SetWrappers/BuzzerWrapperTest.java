@@ -3,27 +3,53 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.GroveDigitalOut;
 import org.junit.Before;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import java.io.IOException;
+import java.util.logging.Logger;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+
+@PrepareForTest({GroveDigitalOut.class})
 public class BuzzerWrapperTest {
 
     private BuzzerWrapper buzzerWrapperMock;
+    private GroveDigitalOut buzzerMock;
 
     @Before
-    public void setUp() throws Exception {
-        GroveDigitalOut buzzerMock = PowerMockito.mock(GroveDigitalOut.class);
-        buzzerWrapperMock = PowerMockito.mock(BuzzerWrapper.class);
-        whenNew(BuzzerWrapper.class).withArguments(buzzerMock).thenReturn(buzzerWrapperMock);
+    public void setUp() {
+        buzzerMock = Mockito.mock(GroveDigitalOut.class);
+        buzzerWrapperMock = Mockito.spy(new BuzzerWrapper(buzzerMock));
+        buzzerWrapperMock.setLogger(Mockito.mock(Logger.class));
     }
 
     @Test
-    public void testSet() {
-        PowerMockito.doNothing().when(buzzerWrapperMock).set(true);
-        buzzerWrapperMock.set(true);
-        verify(buzzerWrapperMock, times(1)).set(true);
+    public void testSetFailed() throws IOException {
+        Mockito.doThrow(new IOException()).when(buzzerMock).set(true);
+        disableLogger();
+        boolean actual = buzzerWrapperMock.set(true);
+        assertFalse(actual);
+    }
+
+    private void disableLogger() {
+        Logger logger = buzzerWrapperMock.getLogger();
+        Mockito.doNothing().when(logger).severe(anyString());
+    }
+
+    @Test
+    public void testSetTrueSuccess() throws IOException {
+        Mockito.doNothing().when(buzzerMock).set(true);
+        boolean actual = buzzerWrapperMock.set(true);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void testSetFalseSuccess() throws IOException {
+        Mockito.doNothing().when(buzzerMock).set(false);
+        boolean actual = buzzerWrapperMock.set(false);
+        assertTrue(actual);
     }
 }

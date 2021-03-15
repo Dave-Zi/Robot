@@ -1,7 +1,6 @@
 package GroveWrappers.GetWrappers;
 
 import org.iot.raspberry.grovepi.GroveDigitalIn;
-import org.iot.raspberry.grovepi.GrovePi;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -24,4 +23,8 @@ public class ButtonWrapper implements IGroveSensorGetWrapper {
             return null;
         }
     }
+
+    public void setLogger(Logger logger){ this.logger=logger; }
+
+    public Logger getLogger(){ return this.logger; }
 }

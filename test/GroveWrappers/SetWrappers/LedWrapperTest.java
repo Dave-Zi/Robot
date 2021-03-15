@@ -3,27 +3,53 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveLed;
 import org.junit.Before;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
+import java.io.IOException;
+import java.util.logging.Logger;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+
+@PrepareForTest({GroveLed.class})
 public class LedWrapperTest {
+
     private LedWrapper ledWrapperMock;
+    private GroveLed ledMock;
 
     @Before
-    public void setUp() throws Exception {
-        GroveLed ledMock = PowerMockito.mock(GroveLed.class);
-        ledWrapperMock = PowerMockito.mock(LedWrapper.class);
-        whenNew(LedWrapper.class).withArguments(ledMock).thenReturn(ledWrapperMock);
+    public void setUp() {
+        ledMock = Mockito.mock(GroveLed.class);
+        ledWrapperMock = Mockito.spy(new LedWrapper(ledMock));
+        ledWrapperMock.setLogger(Mockito.mock(Logger.class));
     }
 
     @Test
-    public void testSet() {
-        PowerMockito.doNothing().when(ledWrapperMock).set(true);
-        ledWrapperMock.set(true);
-        verify(ledWrapperMock, times(1)).set(true);
+    public void testSetFailed() throws IOException {
+        Mockito.doThrow(new IOException()).when(ledMock).set(true);
+        disableLogger();
+        boolean actual = ledWrapperMock.set(true);
+        assertFalse(actual);
     }
 
+    private void disableLogger() {
+        Logger logger = ledWrapperMock.getLogger();
+        Mockito.doNothing().when(logger).severe(anyString());
+    }
+
+    @Test
+    public void testSetTrueSuccess() throws IOException {
+        Mockito.doNothing().when(ledMock).set(true);
+        boolean actual = ledWrapperMock.set(true);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void testSetFalseSuccess() throws IOException {
+        Mockito.doNothing().when(ledMock).set(false);
+        boolean actual = ledWrapperMock.set(false);
+        assertTrue(actual);
+    }
 }

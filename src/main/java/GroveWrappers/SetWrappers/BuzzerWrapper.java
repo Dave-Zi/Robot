@@ -1,7 +1,6 @@
 package GroveWrappers.SetWrappers;
 
 import org.iot.raspberry.grovepi.GroveDigitalOut;
-import org.iot.raspberry.grovepi.GrovePi;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -16,11 +15,17 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
     }
 
     @Override
-    public void set(boolean value) {
+    public boolean set(boolean value) {
         try {
             buzzer.set(value);
+            return true;
         } catch (IOException e) {
             logger.severe("Error when writing data to port");
+            return false;
         }
     }
+
+    public void setLogger(Logger logger){ this.logger=logger; }
+
+    public Logger getLogger(){ return this.logger; }
 }

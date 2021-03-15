@@ -1,6 +1,5 @@
 package GroveWrappers.GetWrappers;
 
-import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.GroveTemperatureAndHumiditySensor;
 import org.iot.raspberry.grovepi.devices.GroveTemperatureAndHumidityValue;
 
@@ -31,4 +30,8 @@ public class TemperatureWrapper implements IGroveSensorGetWrapper {
         }
         return null;
     }
+
+    public void setLogger(Logger logger){ this.logger=logger; }
+
+    public Logger getLogger(){ return this.logger; }
 }
