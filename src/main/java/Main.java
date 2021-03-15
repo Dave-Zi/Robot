@@ -1,6 +1,4 @@
-import Enums.BoardTypeEnum;
-import Enums.Ev3SensorPort;
-import Enums.GrovePiPort;
+import Enums.*;
 import GroveWrappers.GetWrappers.*;
 import GroveWrappers.SetWrappers.BuzzerWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -28,9 +26,20 @@ public class Main {
         Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
         GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 
+        Map<IEv3Port, Double> stop = Map.of();
+        Map<IEv3Port, Double> forward = Map.of(
+                Ev3DrivePort.B, 35.0,
+                Ev3DrivePort.C, 35.0
+        );
+
+        Map<IEv3Port, Double> turn = Map.of(
+                Ev3DrivePort.B, 25.0
+        );
+
+
         int count = 0;
         while (count < 2) {
-            ev3B.drive(null, new double[]{0, 35, 35, 0});
+            ev3B.drive(forward);
             grovePi.setSensorData(GrovePiPort.D2, true);
             grovePi.setSensorData(GrovePiPort.D8, false);
 
@@ -44,7 +53,7 @@ public class Main {
             }
             System.out.println("Stopping");
 
-            ev3B.drive(null, new double[]{0, 0, 0, 0});
+            ev3B.drive(stop);
             grovePi.setSensorData(GrovePiPort.D2, false);
             grovePi.setSensorData(GrovePiPort.D8, true);
 
@@ -54,14 +63,14 @@ public class Main {
             System.out.println("Turning!");
 
 
-            ev3B.drive(null, new double[]{0, 25, 0, 0});
+            ev3B.drive(turn);
             Thread.sleep(4000);
-            ev3B.drive(null, new double[]{0, 0, 0, 0});
+            ev3B.drive(stop);
             grovePi.setSensorData(GrovePiPort.D8, false);
 
             count++;
         }
-        ev3B.drive(null, new double[]{0, 0, 0, 0});
+        ev3B.drive(stop);
         grovePi.setSensorData(GrovePiPort.D2, false);
         grovePi.setSensorData(GrovePiPort.D8, false);
         System.out.println("End!");

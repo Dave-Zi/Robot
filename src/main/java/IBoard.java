@@ -1,12 +1,16 @@
-public interface IBoard<SensorPortType, MotorPortType> {
+import Enums.IPortEnums;
 
-    Boolean getBooleanSensorData(SensorPortType port, int mode);
+import java.util.Map;
 
-    Double getDoubleSensorData(SensorPortType port, int mode);
+public interface IBoard<BoardPortType extends IPortEnums> {
 
-    Boolean setSensorData(SensorPortType port, boolean value);
+    Boolean getBooleanSensorData(BoardPortType port, int mode);
 
-    void drive(MotorPortType[] port, double[] speed);
+    Double getDoubleSensorData(BoardPortType port, int mode);
+
+    void setSensorData(BoardPortType port, boolean value);
+
+    void drive(Map<BoardPortType, Double> speeds);
 
     void disconnect();
 }
