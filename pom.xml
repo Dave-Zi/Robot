@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>MyGroup</groupId>
+    <groupId>org.iot</groupId>
     <artifactId>Robot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -88,9 +88,20 @@
         <repository>
             <id>project.mymavenrepository</id>
             <name>mymavenrepository</name>
-            <url>https://mymavenrepo.com/repo/hMt8ClBV8kQ64QtGXSYF/</url>
+            <url>${myMavenRepoReadUrl}</url>
         </repository>
 
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>myMavenRepo</id>
+            <url>${myMavenRepoWriteUrl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>myMavenRepo</id>
+            <url>${myMavenRepoWriteUrl}</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

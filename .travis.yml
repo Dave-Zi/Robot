@@ -10,3 +10,6 @@ jobs:
     - stage: "Tests"
       name: "Unit Tests"
       script: mvn test
+    - stage: "Deploy"
+      name: "Deploy Maven repo"
+      script: mvn deploy
