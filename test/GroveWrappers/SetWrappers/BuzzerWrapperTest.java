@@ -23,7 +23,6 @@ public class BuzzerWrapperTest {
     public void setUp() {
         buzzerMock = Mockito.mock(GroveDigitalOut.class);
         buzzerWrapperMock = Mockito.spy(new BuzzerWrapper(buzzerMock));
-//        Mockito.doCallRealMethod().when(buzzerWrapperMock).setLogger(Mockito.mock(Logger.class));
         buzzerWrapperMock.setLogger(Mockito.mock(Logger.class));
     }
 
