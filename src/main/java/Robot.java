@@ -21,10 +21,10 @@ import java.util.Map;
 
 public class Robot {
 
-//    public static void main(String[] args) throws IOException, InterruptedException {
-//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
-//        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
-////        Ev3Board ev3 = new Ev3Board(new EV3("rfcomm0"));
+    public static void main(String[] args) throws IOException {
+        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
+        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
+        Ev3Board ev3 = new Ev3Board(new EV3("rfcomm0"));
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 //
 //        Map<IEv3Port, Double> stop = Map.of();
@@ -76,7 +76,7 @@ public class Robot {
 //        grovePi.setSensorData(GrovePiPort.D8, false);
 //        System.out.println("End!");
 //
-//    }
+    }
 
     /**
      * reads a json file with the existing boards and their sensors.
