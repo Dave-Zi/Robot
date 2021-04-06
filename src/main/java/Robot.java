@@ -21,11 +21,14 @@ import java.util.Map;
 
 public class Robot {
 
-//        public static void main(String[] args) throws IOException, InterruptedException {
+//    public static void main(String[] args) throws IOException, InterruptedException {
 //        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
 //        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 //
+//        ev3B.rotate(3, 90, 5);
+
+
 //        Map<IEv3Port, Double> stop = Map.of();
 //        Map<IEv3Port, Double> forward = Map.of(
 //                Ev3DrivePort.B, 35.0,

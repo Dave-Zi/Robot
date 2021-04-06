@@ -12,5 +12,7 @@ public interface IBoard<BoardPortType extends IPortEnums> {
 
     void drive(Map<BoardPortType, Double> speeds);
 
+    void rotate(int index, int angle, int speed);
+
     void disconnect();
 }
