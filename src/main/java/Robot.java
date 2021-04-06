@@ -1,4 +1,4 @@
-import Enums.*;
+import Enums.BoardTypeEnum;
 import GroveWrappers.GetWrappers.*;
 import GroveWrappers.SetWrappers.BuzzerWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -21,62 +21,62 @@ import java.util.Map;
 
 public class Robot {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
-        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
-//        Ev3Board ev3 = new Ev3Board(new EV3("rfcomm0"));
-        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
-
-        Map<IEv3Port, Double> stop = Map.of();
-        Map<IEv3Port, Double> forward = Map.of(
-                Ev3DrivePort.B, 35.0,
-                Ev3DrivePort.C, 35.0
-        );
-
-        Map<IEv3Port, Double> turn = Map.of(
-                Ev3DrivePort.B, 25.0
-        );
-
-
-        int count = 0;
-        while (count < 2) {
-            ev3B.drive(forward);
-            grovePi.setSensorData(GrovePiPort.D2, true);
-            grovePi.setSensorData(GrovePiPort.D8, false);
-
-            Double ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
-            double groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-
-            System.out.println("Driving straight!");
-            while (ev3Distance == null || (ev3Distance > 30 && groveDistance > 20)) {
-                ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
-                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-            }
-            System.out.println("Stopping");
-
-            ev3B.drive(stop);
-            grovePi.setSensorData(GrovePiPort.D2, false);
-            grovePi.setSensorData(GrovePiPort.D8, true);
-
-            while (groveDistance > 20) {
-                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-            }
-            System.out.println("Turning!");
-
-
-            ev3B.drive(turn);
-            Thread.sleep(4000);
-            ev3B.drive(stop);
-            grovePi.setSensorData(GrovePiPort.D8, false);
-
-            count++;
-        }
-        ev3B.drive(stop);
-        grovePi.setSensorData(GrovePiPort.D2, false);
-        grovePi.setSensorData(GrovePiPort.D8, false);
-        System.out.println("End!");
-
-    }
+//    public static void main(String[] args) throws IOException, InterruptedException {
+//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
+//        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
+////        Ev3Board ev3 = new Ev3Board(new EV3("rfcomm0"));
+//        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
+//
+//        Map<IEv3Port, Double> stop = Map.of();
+//        Map<IEv3Port, Double> forward = Map.of(
+//                Ev3DrivePort.B, 35.0,
+//                Ev3DrivePort.C, 35.0
+//        );
+//
+//        Map<IEv3Port, Double> turn = Map.of(
+//                Ev3DrivePort.B, 25.0
+//        );
+//
+//
+//        int count = 0;
+//        while (count < 2) {
+//            ev3B.drive(forward);
+//            grovePi.setSensorData(GrovePiPort.D2, true);
+//            grovePi.setSensorData(GrovePiPort.D8, false);
+//
+//            Double ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
+//            double groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
+//
+//            System.out.println("Driving straight!");
+//            while (ev3Distance == null || (ev3Distance > 30 && groveDistance > 20)) {
+//                ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
+//                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
+//            }
+//            System.out.println("Stopping");
+//
+//            ev3B.drive(stop);
+//            grovePi.setSensorData(GrovePiPort.D2, false);
+//            grovePi.setSensorData(GrovePiPort.D8, true);
+//
+//            while (groveDistance > 20) {
+//                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
+//            }
+//            System.out.println("Turning!");
+//
+//
+//            ev3B.drive(turn);
+//            Thread.sleep(4000);
+//            ev3B.drive(stop);
+//            grovePi.setSensorData(GrovePiPort.D8, false);
+//
+//            count++;
+//        }
+//        ev3B.drive(stop);
+//        grovePi.setSensorData(GrovePiPort.D2, false);
+//        grovePi.setSensorData(GrovePiPort.D8, false);
+//        System.out.println("End!");
+//
+//    }
 
     /**
      * reads a json file with the existing boards and their sensors.
