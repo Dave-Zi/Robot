@@ -11,9 +11,7 @@ import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.*;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,9 +20,13 @@ import java.util.Map;
 public class Robot {
 
 //    public static void main(String[] args) throws IOException, InterruptedException {
-//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
+//        InputStream inputStream = new FileInputStream("./classes/Robot.json");
+//        byte[] data = inputStream.readAllBytes();
+//        String jsonString = new String(data);
+//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot(jsonString);
 //        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
+
 //
 //        Map<IEv3Port, Double> stop = Map.of();
 //        Map<IEv3Port, Double> forward = Map.of(
@@ -80,14 +82,11 @@ public class Robot {
     /**
      * reads a json file with the existing boards and their sensors.
      *
-     * @param path of the json file
+     * @param jsonString of the json file
      * @return HashMap of all the boards from the json
      * @throws IOException in case of IO problem when reading the json file
      */
-    public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String path) throws IOException {
-        InputStream inputStream = new FileInputStream(path);
-        byte[] data = inputStream.readAllBytes();
-        String jsonString = new String(data);
+    public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String jsonString) throws IOException {
 
         Map<String, Map<String, String>[]> retMap = new Gson()
                 .fromJson(
