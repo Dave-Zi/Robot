@@ -11,9 +11,7 @@ import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.*;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,13 +20,14 @@ import java.util.Map;
 public class Robot {
 
 //    public static void main(String[] args) throws IOException, InterruptedException {
-//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot("./classes/Robot.json");
+//        InputStream inputStream = new FileInputStream("./classes/Robot.json");
+//        byte[] data = inputStream.readAllBytes();
+//        String jsonString = new String(data);
+//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot(jsonString);
 //        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
+
 //
-//        ev3B.rotate(3, 90, 5);
-
-
 //        Map<IEv3Port, Double> stop = Map.of();
 //        Map<IEv3Port, Double> forward = Map.of(
 //                Ev3DrivePort.B, 35.0,
@@ -83,48 +82,50 @@ public class Robot {
     /**
      * reads a json file with the existing boards and their sensors.
      *
-     * @param path of the json file
+     * @param jsonString of the json file
      * @return HashMap of all the boards from the json
      * @throws IOException in case of IO problem when reading the json file
      */
-    public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String path) throws IOException {
-        InputStream inputStream = new FileInputStream(path);
-        byte[] data = inputStream.readAllBytes();
-        String jsonString = new String(data);
+    public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String jsonString) throws IOException {
 
-        Map<String, Map<String, String>> retMap = new Gson()
+        Map<String, Map<String, String>[]> retMap = new Gson()
                 .fromJson(
-                        jsonString, new TypeToken<HashMap<String, HashMap<String, String>>>() {
+                        jsonString, new TypeToken<HashMap<String, HashMap<String, String>[]>>() {
                         }.getType()
                 );
 
         HashMap<BoardTypeEnum, List<IBoard>> boards = new HashMap<>();
         GrovePi grovePi = new GrovePi4J();
-        for (Map.Entry<String, Map<String, String>> entry : retMap.entrySet()) {
-
+        for (Map.Entry<String, Map<String, String>[]> entry : retMap.entrySet()) {
             switch (entry.getKey()) {
                 case "GrovePi":
-                    GrovePiBoard newGrovePiBoard = parseGrovePi(grovePi, entry.getValue());
-                    if (!boards.containsKey(BoardTypeEnum.GrovePi)) {
-                        boards.put(BoardTypeEnum.GrovePi, new ArrayList<>());
-                    }
-
-                    boards.get(BoardTypeEnum.GrovePi).add(newGrovePiBoard);
-                    continue;
-                case "EV3":
-                    Map<String, String> Ev3Val = entry.getValue();
-                    for (Map.Entry<String, String> Ev3Data : Ev3Val.entrySet()) {
-                        String port = Ev3Data.getValue();
-//                        Ev3Map.put(port, new Ev3Board(port));
-                        EV3 ev3 = new EV3(port);
-                        Ev3Board newEv3Board = new Ev3Board(ev3);
-                        if (!boards.containsKey(BoardTypeEnum.EV3)) {
-                            boards.put(BoardTypeEnum.EV3, new ArrayList<>());
+                    for (Map<String, String> grove_entry : entry.getValue()) {
+                        GrovePiBoard newGrovePiBoard = parseGrovePi(grovePi, grove_entry);
+                        if (!boards.containsKey(BoardTypeEnum.GrovePi)) {
+                            boards.put(BoardTypeEnum.GrovePi, new ArrayList<>());
                         }
 
-                        boards.get(BoardTypeEnum.EV3).add(newEv3Board);
-
+                        boards.get(BoardTypeEnum.GrovePi).add(newGrovePiBoard);
                     }
+                    continue;
+                case "EV3":
+                    for (Map<String, String> ev3_entry : entry.getValue()) {
+
+                        for (Map.Entry<String, String> Ev3Data : ev3_entry.entrySet()) {
+                            String port = Ev3Data.getValue();
+//                        Ev3Map.put(port, new Ev3Board(port));
+                            EV3 ev3 = new EV3(port);
+                            Ev3Board newEv3Board = new Ev3Board(ev3);
+                            if (!boards.containsKey(BoardTypeEnum.EV3)) {
+                                boards.put(BoardTypeEnum.EV3, new ArrayList<>());
+                            }
+
+                            boards.get(BoardTypeEnum.EV3).add(newEv3Board);
+
+                        }
+                    }
+
+
             }
         }
         return boards;
