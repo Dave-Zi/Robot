@@ -42,7 +42,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
     }
 
     @Override
-    public Boolean setSensorData(IEv3Port  port, boolean value) {
+    public Boolean setSensorData(IEv3Port port, boolean value) {
         ev3.tone(440, 50, 200);
         return true;
     }
@@ -66,5 +66,10 @@ public class Ev3Board implements IBoard<IEv3Port> {
             motorSpeed[i] = speed == null ? 0 : speed.intValue();
         }
         ev3.spin(motorSpeed[0], motorSpeed[1], motorSpeed[2], motorSpeed[3]);
+    }
+
+    @Override
+    public void rotate(int index, int angle, int speed) {
+        ev3.rotate(index, angle, speed);
     }
 }

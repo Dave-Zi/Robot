@@ -1,7 +1,7 @@
 {
   "EV3":[
     {
-      "Port": "rfcomm0"
+      "Port": "rfcomm3"
     }]
   ,
   "GrovePi":

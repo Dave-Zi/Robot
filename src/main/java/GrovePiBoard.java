@@ -64,6 +64,10 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
     }
 
     @Override
+    public void rotate(int index, int angle, int speed) {
+    }
+
+    @Override
     public void disconnect() {
     }
 
