@@ -2,9 +2,11 @@ import Enums.IPortEnums;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MockBoard implements IBoard {
 
+    private Random random = new Random();
     private Map<IPortEnums, Double> portsMap = new HashMap<>();
 
     @Override
@@ -12,7 +14,7 @@ public class MockBoard implements IBoard {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port) > 0;
         }
-        return null;
+        return random.nextInt(100) > 50;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class MockBoard implements IBoard {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port);
         }
-        return null;
+        return (double) random.nextInt(100);
     }
 
     @Override
