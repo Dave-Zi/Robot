@@ -1,6 +1,6 @@
 import Enums.IPortEnums;
 
-import java.util.Map;
+import java.util.List;
 
 public interface IBoard<BoardPortType extends IPortEnums> {
 
@@ -10,9 +10,9 @@ public interface IBoard<BoardPortType extends IPortEnums> {
 
     Boolean setSensorData(BoardPortType port, boolean value);
 
-    void drive(Map<BoardPortType, Double> speeds);
+    void drive(List<DriveDataObject> driveData);
 
-    void rotate(int index, int angle, int speed);
+    void rotate(List<DriveDataObject> driveData);
 
     void disconnect();
 }

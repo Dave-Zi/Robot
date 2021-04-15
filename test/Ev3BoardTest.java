@@ -1,10 +1,10 @@
 import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
-import Enums.IEv3Port;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -43,9 +43,12 @@ public class Ev3BoardTest {
     public void testDrive() {
         doNothing().when(ev3Mock).spin(100, 0, 0, 0);
 
-        Map<IEv3Port, Double> param = Map.of(
-                Ev3DrivePort.A, 100.0
-        );
+//        Map<IEv3Port, Double> param = Map.of(
+//                Ev3DrivePort.A, 100.0
+//        );
+        ArrayList<DriveDataObject> param = new ArrayList<>
+                (Collections.singletonList(new DriveDataObject(Ev3DrivePort.A, 100, 0)));
+
         ev3Board.drive(param);
 
         verify(ev3Mock, times(1)).spin(100, 0, 0, 0);
