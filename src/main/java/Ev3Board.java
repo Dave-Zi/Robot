@@ -2,7 +2,7 @@ import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import Enums.IEv3Port;
 
-import java.util.Map;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Ev3Board implements IBoard<IEv3Port> {
@@ -57,19 +57,55 @@ public class Ev3Board implements IBoard<IEv3Port> {
       Call spin with the specific port -
       Ev3 motor ports are : A B C D
      */
-    public void drive(Map<IEv3Port, Double> speeds) {
+    public void drive(List<DriveDataObject> driveData) {
         int[] motorSpeed = new int[4];
-        Ev3DrivePort[] ports = Ev3DrivePort.values();
 
-        for (int i = 0; i < motorSpeed.length; i++) {
-            Double speed = speeds.get(ports[i]);
-            motorSpeed[i] = speed == null ? 0 : speed.intValue();
-        }
+        driveData.forEach(driveObj -> {
+            switch ((Ev3DrivePort) driveObj.getPort()) {
+                case A:
+                    motorSpeed[0] = (int) driveObj.getSpeed();
+                    break;
+                case B:
+                    motorSpeed[1] = (int) driveObj.getSpeed();
+                    break;
+                case C:
+                    motorSpeed[2] = (int) driveObj.getSpeed();
+                    break;
+                case D:
+                    motorSpeed[3] = (int) driveObj.getSpeed();
+                    break;
+            }
+        });
+
         ev3.spin(motorSpeed[0], motorSpeed[1], motorSpeed[2], motorSpeed[3]);
     }
 
     @Override
-    public void rotate(int index, int angle, int speed) {
-        ev3.rotate(index, angle, speed);
+    public void rotate(List<DriveDataObject> driveData) {
+        int[] angles = new int[4];
+        double fastestSpeed = 0;
+
+        for (DriveDataObject driveObj : driveData) {
+            switch ((Ev3DrivePort) driveObj.getPort()) {
+                case A:
+                    angles[0] = driveObj.getAngle();
+                    break;
+                case B:
+                    angles[1] = driveObj.getAngle();
+                    break;
+                case C:
+                    angles[2] = driveObj.getAngle();
+                    break;
+                case D:
+                    angles[3] = driveObj.getAngle();
+                    break;
+            }
+
+            if (Math.abs(fastestSpeed) <= Math.abs(driveObj.getSpeed())) {
+                fastestSpeed = driveObj.getSpeed();
+            }
+        }
+
+        ev3.rotate(angles[0], angles[1], angles[2], angles[3], (int) fastestSpeed);
     }
 }

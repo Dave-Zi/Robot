@@ -4,6 +4,7 @@ import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -60,11 +61,13 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
     }
 
     @Override
-    public void drive(Map<GrovePiPort, Double> speeds) {
+    public void drive(List<DriveDataObject> driveData) {
+
     }
 
     @Override
-    public void rotate(int index, int angle, int speed) {
+    public void rotate(List<DriveDataObject> driveData) {
+
     }
 
     @Override

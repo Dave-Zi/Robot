@@ -1,6 +1,7 @@
 import Enums.IPortEnums;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -36,17 +37,17 @@ public class MockBoard implements IBoard {
     }
 
     @Override
-    public void rotate(int index, int angle, int speed) {
-
-    }
-
-    @Override
     public void disconnect() {
 
     }
 
     @Override
-    public void drive(Map speeds) {
+    public void rotate(List driveData) {
+
+    }
+
+    @Override
+    public void drive(List driveData) {
 
     }
 }
