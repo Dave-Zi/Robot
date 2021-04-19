@@ -3,6 +3,7 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveLed;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LedWrapper implements IGroveSensorSetWrapper {
@@ -11,6 +12,7 @@ public class LedWrapper implements IGroveSensorSetWrapper {
 
     public LedWrapper(GroveLed led){
         this.led = led;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

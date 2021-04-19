@@ -6,6 +6,7 @@ import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
@@ -26,6 +27,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
         super();
         this.sensorGetMap = sensorGetMap;
         this.sensorSetMap = sensorSetMap;
+        logger.setLevel(Level.SEVERE);
     }
 
     /**

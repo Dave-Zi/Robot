@@ -3,6 +3,7 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.GroveDigitalOut;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BuzzerWrapper implements IGroveSensorSetWrapper {
@@ -12,6 +13,7 @@ public class BuzzerWrapper implements IGroveSensorSetWrapper {
 
     public BuzzerWrapper(GroveDigitalOut buzzer){
         this.buzzer = buzzer;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override
