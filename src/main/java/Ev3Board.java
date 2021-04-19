@@ -3,6 +3,7 @@ import Enums.Ev3SensorPort;
 import Enums.IEv3Port;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Ev3Board implements IBoard<IEv3Port> {
@@ -13,6 +14,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
 
     Ev3Board(EV3 ev3) {
         this.ev3 = ev3;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

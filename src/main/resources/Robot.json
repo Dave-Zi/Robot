@@ -2,7 +2,7 @@
   "EV3":
   [
     {
-      "Port": "rfcomm3"
+      "Port": "rfcomm0"
     }
   ]
   ,

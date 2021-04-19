@@ -4,6 +4,7 @@ import org.iot.raspberry.grovepi.devices.GroveRotarySensor;
 import org.iot.raspberry.grovepi.devices.GroveRotaryValue;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RotaryWrapper implements IGroveSensorGetWrapper {
@@ -12,6 +13,7 @@ public class RotaryWrapper implements IGroveSensorGetWrapper {
 
     public RotaryWrapper(GroveRotarySensor rotarySensor) {
         this.rotarySensor = rotarySensor;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

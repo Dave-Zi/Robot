@@ -3,6 +3,7 @@ package GroveWrappers.SetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveRelay;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RelayWrapper implements IGroveSensorSetWrapper {
@@ -11,6 +12,7 @@ public class RelayWrapper implements IGroveSensorSetWrapper {
 
     public RelayWrapper(GroveRelay relay){
         this.relay = relay;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

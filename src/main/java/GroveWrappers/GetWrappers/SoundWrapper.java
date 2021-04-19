@@ -3,6 +3,7 @@ package GroveWrappers.GetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveSoundSensor;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SoundWrapper implements IGroveSensorGetWrapper {
@@ -12,6 +13,7 @@ public class SoundWrapper implements IGroveSensorGetWrapper {
 
     public SoundWrapper(GroveSoundSensor soundSensor){
         this.soundSensor = soundSensor;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

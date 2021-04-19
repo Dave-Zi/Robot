@@ -3,6 +3,7 @@ package GroveWrappers.GetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveUltrasonicRanger;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UltrasonicWrapper implements IGroveSensorGetWrapper {
@@ -12,6 +13,7 @@ public class UltrasonicWrapper implements IGroveSensorGetWrapper {
 
     public UltrasonicWrapper(GroveUltrasonicRanger ultrasonicRanger){
         this.ultrasonicRanger = ultrasonicRanger;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

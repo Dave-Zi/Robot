@@ -28,11 +28,12 @@ public class Robot {
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 
 //
-//        Map<IEv3Port, Double> stop = Map.of();
-//        Map<IEv3Port, Double> forward = Map.of(
-//                Ev3DrivePort.B, 35.0,
-//                Ev3DrivePort.C, 35.0
-//        );
+//        List<DriveDataObject> stop = null;
+//        List<DriveDataObject> forward =
+//                Arrays.asList(new DriveDataObject[]{new DriveDataObject(Ev3DrivePort.B, 35.0, 0),
+//                        new DriveDataObject(Ev3DrivePort.C, 35.0, 0)});
+
+
 //
 //        Map<IEv3Port, Double> turn = Map.of(
 //                Ev3DrivePort.B, 25.0
@@ -40,7 +41,7 @@ public class Robot {
 //
 //        int count = 0;
 //        while (count < 2) {
-//            ev3B.drive(forward);
+    // ev3B.drive(forward);
 //            grovePi.setSensorData(GrovePiPort.D2, true);
 //            grovePi.setSensorData(GrovePiPort.D8, false);
 //
@@ -54,7 +55,8 @@ public class Robot {
 //            }
 //            System.out.println("Stopping");
 //
-//            ev3B.drive(stop);
+    //   Thread.sleep(4000);
+    //     ev3B.drive(stop);
 //            grovePi.setSensorData(GrovePiPort.D2, false);
 //            grovePi.setSensorData(GrovePiPort.D8, true);
 //
@@ -76,7 +78,7 @@ public class Robot {
 //        grovePi.setSensorData(GrovePiPort.D8, false);
 //        System.out.println("End!");
 //
-//    }
+    //   }
 
     /**
      * reads a json file with the existing boards and their sensors.

@@ -3,6 +3,7 @@ package GroveWrappers.GetWrappers;
 import org.iot.raspberry.grovepi.devices.GroveLightSensor;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LightWrapper implements IGroveSensorGetWrapper{
@@ -11,6 +12,7 @@ public class LightWrapper implements IGroveSensorGetWrapper{
 
     public LightWrapper(GroveLightSensor lightSensor) {
         this.lightSensor = lightSensor;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

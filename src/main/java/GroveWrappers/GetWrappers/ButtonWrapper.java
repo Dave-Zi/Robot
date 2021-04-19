@@ -3,6 +3,7 @@ package GroveWrappers.GetWrappers;
 import org.iot.raspberry.grovepi.GroveDigitalIn;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ButtonWrapper implements IGroveSensorGetWrapper {
@@ -12,6 +13,7 @@ public class ButtonWrapper implements IGroveSensorGetWrapper {
 
     public ButtonWrapper(GroveDigitalIn button){
         this.button = button;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override

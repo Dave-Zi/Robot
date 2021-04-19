@@ -4,6 +4,7 @@ import org.iot.raspberry.grovepi.devices.GroveTemperatureAndHumiditySensor;
 import org.iot.raspberry.grovepi.devices.GroveTemperatureAndHumidityValue;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TemperatureWrapper implements IGroveSensorGetWrapper {
@@ -12,6 +13,7 @@ public class TemperatureWrapper implements IGroveSensorGetWrapper {
 
     public TemperatureWrapper(GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor) {
         this.temperatureAndHumiditySensor = temperatureAndHumiditySensor;
+        logger.setLevel(Level.SEVERE);
     }
 
     @Override
