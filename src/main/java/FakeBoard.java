@@ -1,3 +1,4 @@
+import Enums.FakeBoardPort;
 import Enums.IPortEnums;
 
 import java.util.HashMap;
@@ -5,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class FakeBoard implements IBoard {
+public class FakeBoard implements IBoard<FakeBoardPort> {
 
     private Random random = new Random();
     private Map<IPortEnums, Double> portsMap = new HashMap<>();
 
     @Override
-    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+    public Boolean getBooleanSensorData(FakeBoardPort port, int mode) {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port) > 0;
         }
@@ -19,7 +20,7 @@ public class FakeBoard implements IBoard {
     }
 
     @Override
-    public Double getDoubleSensorData(IPortEnums port, int mode) {
+    public Double getDoubleSensorData(FakeBoardPort port, int mode) {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port);
         }
@@ -27,7 +28,7 @@ public class FakeBoard implements IBoard {
     }
 
     @Override
-    public Boolean setSensorData(IPortEnums port, boolean value) {
+    public Boolean setSensorData(FakeBoardPort port, boolean value) {
         if (portsMap.containsKey(port)) {
             portsMap.replace(port, value ? 1.0 : 0.0);
         } else {
