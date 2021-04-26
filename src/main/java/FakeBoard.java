@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MockBoard implements IBoard {
+public class FakeBoard implements IBoard {
 
     private Random random = new Random();
     private Map<IPortEnums, Double> portsMap = new HashMap<>();
