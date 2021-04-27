@@ -24,6 +24,11 @@ public class Ev3Board implements IBoard<IEv3Port> {
     }
 
     @Override
+    public String freeAlgorithm(String json) {
+        return "";
+    }
+
+    @Override
     /*
      * Ev3 sensor ports are 1 2 3 4
      */

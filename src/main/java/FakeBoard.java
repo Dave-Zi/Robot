@@ -43,6 +43,11 @@ public class FakeBoard implements IBoard<FakeBoardPort> {
     }
 
     @Override
+    public String freeAlgorithm(String json) {
+        return json;
+    }
+
+    @Override
     public void rotate(List driveData) {
 
     }
