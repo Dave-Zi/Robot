@@ -24,7 +24,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
     }
 
     @Override
-    public String freeAlgorithm(String json) {
+    public String myAlgorithm(String json) {
         return "";
     }
 

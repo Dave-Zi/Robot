@@ -77,7 +77,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
     }
 
     @Override
-    public String freeAlgorithm(String json) {
+    public String myAlgorithm(String json) {
         return "";
     }
 

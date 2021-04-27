@@ -16,5 +16,5 @@ public interface IBoard<BoardPortType extends IPortEnums> {
 
     void disconnect();
 
-    String freeAlgorithm(String json);
+    String myAlgorithm(String json);
 }
