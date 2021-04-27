@@ -5,7 +5,6 @@ import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import GroveWrappers.SetWrappers.LedWrapper;
 import GroveWrappers.SetWrappers.RelayWrapper;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.iot.raspberry.grovepi.GroveDigitalOut;
 import org.iot.raspberry.grovepi.GrovePi;
 import org.iot.raspberry.grovepi.devices.*;
@@ -14,8 +13,9 @@ import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Robot {
 
@@ -23,7 +23,6 @@ public class Robot {
 //        InputStream inputStream = new FileInputStream("./classes/Robot.json");
 //        byte[] data = inputStream.readAllBytes();
 //        String jsonString = new String(data);
-//        HashMap<BoardTypeEnum, List<IBoard>> boards = JsonToRobot(jsonString);
 //        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
 //        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 
@@ -78,66 +77,68 @@ public class Robot {
 //        grovePi.setSensorData(GrovePiPort.D8, false);
 //        System.out.println("End!");
 //
-    //   }
+//       }
+
+    private static IParser ev3Parser = Robot::ev3Parser;
+    private static IParser grovePiParser = Robot::grovePiParser;
+
+    private static Map<String, IParser> boardToParser = Stream.of(new Object[][]{
+            {"EV3", ev3Parser},
+            {"GrovePi", grovePiParser}
+
+    }).collect(Collectors.toMap(data -> (String) data[0], data -> (IParser) data[1]));
 
     /**
      * reads a json file with the existing boards and their sensors.
      *
      * @param jsonString of the json file
      * @return HashMap of all the boards from the json
-     * @throws IOException in case of IO problem when reading the json file
      */
-    public static HashMap<BoardTypeEnum, List<IBoard>> JsonToRobot(String jsonString) throws IOException {
+    public static Map<BoardTypeEnum, Map<Integer, IBoard>> JsonToRobot(String jsonString) {
 
-        Map<String, Map<String, String>[]> retMap = new Gson()
-                .fromJson(
-                        jsonString, new TypeToken<HashMap<String, HashMap<String, String>[]>>() {
-                        }.getType()
-                );
+        Map<BoardTypeEnum, Map<Integer, IBoard>> retMap = new HashMap<>();
+        Gson gson = new Gson();
+        Map element = gson.fromJson(jsonString, Map.class); // json String to Map
 
-        HashMap<BoardTypeEnum, List<IBoard>> boards = new HashMap<>();
-        GrovePi grovePi = new GrovePi4J();
-        for (Map.Entry<String, Map<String, String>[]> entry : retMap.entrySet()) {
-            switch (entry.getKey()) {
-                case "GrovePi":
-                    for (Map<String, String> grove_entry : entry.getValue()) {
-                        GrovePiBoard newGrovePiBoard = parseGrovePi(grovePi, grove_entry);
-                        if (!boards.containsKey(BoardTypeEnum.GrovePi)) {
-                            boards.put(BoardTypeEnum.GrovePi, new ArrayList<>());
-                        }
+        for (Object key : element.keySet()) { // Iterate over board types
 
-                        boards.get(BoardTypeEnum.GrovePi).add(newGrovePiBoard);
-                    }
+            String boardName = (String) key;
+            Object value = element.get(key);
+
+            @SuppressWarnings("unchecked")
+            ArrayList<Map<String, String>> boardConfigsList = (ArrayList<Map<String, String>>) value;
+            Map<Integer, IBoard> boardsMap = new HashMap<>();
+
+            for (int i = 0; i < boardConfigsList.size(); i++) {
+                Map<String, String> config = boardConfigsList.get(i);
+                IBoard configsBoard;
+                try {
+                    configsBoard = boardToParser.get(boardName).executeParser(config);
+                } catch (IOException e) {
+                    System.out.println("Failed to initiate board " + boardName + " configs number " + (i + 1));
                     continue;
-                case "EV3":
-                    for (Map<String, String> ev3_entry : entry.getValue()) {
+                }
+                boardsMap.put(i + 1, configsBoard);
+            } // Go over each config and create a board from it.
 
-                        for (Map.Entry<String, String> Ev3Data : ev3_entry.entrySet()) {
-                            String port = Ev3Data.getValue();
-//                        Ev3Map.put(port, new Ev3Board(port));
-                            EV3 ev3 = new EV3(port);
-                            Ev3Board newEv3Board = new Ev3Board(ev3);
-                            if (!boards.containsKey(BoardTypeEnum.EV3)) {
-                                boards.put(BoardTypeEnum.EV3, new ArrayList<>());
-                            }
-
-                            boards.get(BoardTypeEnum.EV3).add(newEv3Board);
-
-                        }
-                    }
-
-
-            }
+            retMap.put(BoardTypeEnum.valueOf(boardName), boardsMap); // Add board type to map
         }
-        return boards;
+        return retMap;
     }
 
-    private static GrovePiBoard parseGrovePi(GrovePi grovePi, Map<String, String> entryVal) throws IOException {
-        Map<String, IGroveSensorSetWrapper> sensorSetMap = new HashMap<>();
+    private static Ev3Board ev3Parser(Map<String, String> config) {
+        String port = config.get("Port");
+        EV3 ev3 = new EV3(port);
+        return new Ev3Board(ev3);
+    }
 
+    private static GrovePiBoard grovePiParser(Map<String, String> config) throws IOException {
+        GrovePi grovePi = new GrovePi4J();
+
+        Map<String, IGroveSensorSetWrapper> sensorSetMap = new HashMap<>();
         Map<String, IGroveSensorGetWrapper> sensorGetMap = new HashMap<>();
 
-        for (Map.Entry<String, String> sensorData : entryVal.entrySet()) {
+        for (Map.Entry<String, String> sensorData : config.entrySet()) {
             int portNumber = Integer.valueOf(sensorData.getKey().substring(1));
             switch (sensorData.getValue()) {
                 case "Led":
@@ -201,9 +202,12 @@ public class Robot {
         }
         return new GrovePiBoard(sensorGetMap, sensorSetMap);
     }
+
+    /**
+     * Uniform Interface for Board Parser
+     */
+    @FunctionalInterface
+    public interface IParser {
+        IBoard executeParser(Map<String, String> config) throws IOException;
+    }
 }
-
-
-
-
-

@@ -2,7 +2,8 @@ package Enums;
 
 public enum BoardTypeEnum {
     EV3,
-    GrovePi;
+    GrovePi,
+    Fake;
 
     // Get the board's matching port
     public IPortEnums getPortType(String port) {
@@ -13,6 +14,9 @@ public enum BoardTypeEnum {
 
             case GrovePi:
                 return GrovePiPort.valueOf(port);
+
+            case Fake:
+                return FakeBoardPort.valueOf(port);
         }
         throw new IllegalArgumentException();
     }
