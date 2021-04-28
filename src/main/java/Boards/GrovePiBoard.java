@@ -1,3 +1,5 @@
+package Boards;
+
 import Enums.GrovePiPort;
 import GroveWrappers.GetWrappers.IGroveSensorGetWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -23,7 +25,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
      */
     private Map<String, IGroveSensorGetWrapper> sensorGetMap;
 
-    GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
+    public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
         this.sensorGetMap = sensorGetMap;
         this.sensorSetMap = sensorSetMap;

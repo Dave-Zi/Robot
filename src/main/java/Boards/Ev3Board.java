@@ -1,3 +1,6 @@
+package Boards;
+
+import EV3.EV3;
 import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import Enums.IEv3Port;
@@ -12,7 +15,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
 
     private EV3 ev3;
 
-    Ev3Board(EV3 ev3) {
+    public Ev3Board(EV3 ev3) {
         this.ev3 = ev3;
         logger.setLevel(Level.SEVERE);
     }

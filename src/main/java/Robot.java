@@ -1,3 +1,7 @@
+import Boards.Ev3Board;
+import Boards.GrovePiBoard;
+import Boards.IBoard;
+import EV3.EV3;
 import Enums.BoardTypeEnum;
 import GroveWrappers.GetWrappers.*;
 import GroveWrappers.SetWrappers.BuzzerWrapper;
@@ -23,14 +27,14 @@ public class Robot {
 //        InputStream inputStream = new FileInputStream("./classes/Robot.json");
 //        byte[] data = inputStream.readAllBytes();
 //        String jsonString = new String(data);
-//        Ev3Board ev3B = (Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
-//        GrovePiBoard grovePi = (GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
+//        Boards.Ev3Board ev3B = (Boards.Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
+//        Boards.GrovePiBoard grovePi = (Boards.GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
 
 //
-//        List<DriveDataObject> stop = null;
-//        List<DriveDataObject> forward =
-//                Arrays.asList(new DriveDataObject[]{new DriveDataObject(Ev3DrivePort.B, 35.0, 0),
-//                        new DriveDataObject(Ev3DrivePort.C, 35.0, 0)});
+//        List<Boards.DriveDataObject> stop = null;
+//        List<Boards.DriveDataObject> forward =
+//                Arrays.asList(new Boards.DriveDataObject[]{new Boards.DriveDataObject(Ev3DrivePort.B, 35.0, 0),
+//                        new Boards.DriveDataObject(Ev3DrivePort.C, 35.0, 0)});
 
 
 //

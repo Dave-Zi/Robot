@@ -1,3 +1,5 @@
+package Boards;
+
 import Enums.IPortEnums;
 
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class MockBoard implements IBoard {
 
     @Override
     public void disconnect() {
-
+        System.out.println("Disconnected!");
     }
 
     @Override
