@@ -15,7 +15,7 @@ public class MockBoard implements IBoard {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port) > 0;
         }
-        return random.nextInt(100) > 50;
+        return false;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class MockBoard implements IBoard {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port);
         }
-        return (double) random.nextInt(100);
+        return 10.0;
     }
 
     @Override
