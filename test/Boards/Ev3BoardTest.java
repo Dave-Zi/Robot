@@ -1,3 +1,6 @@
+package Boards;
+
+import EV3.EV3;
 import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import org.junit.Before;
