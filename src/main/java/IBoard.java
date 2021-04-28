@@ -15,4 +15,6 @@ public interface IBoard<BoardPortType extends IPortEnums> {
     void rotate(List<DriveDataObject> driveData);
 
     void disconnect();
+
+    String myAlgorithm(String json);
 }

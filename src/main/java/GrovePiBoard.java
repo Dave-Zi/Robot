@@ -76,6 +76,11 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
     public void disconnect() {
     }
 
+    @Override
+    public String myAlgorithm(String json) {
+        return "";
+    }
+
     //------------- getters -------------//
 
     Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
