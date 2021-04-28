@@ -83,7 +83,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
         return "";
     }
 
-    //------------- getters -------------//
+    //------------- getters and setters -------------//
 
     Map<String, IGroveSensorSetWrapper> getSensorSetMap() {
         return sensorSetMap;
