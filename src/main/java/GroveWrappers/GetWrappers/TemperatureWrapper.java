@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class TemperatureWrapper implements IGroveSensorGetWrapper {
     private Logger logger = Logger.getLogger(TemperatureWrapper.class.getName());
-    private GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor;
+    private final GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor;
 
     public TemperatureWrapper(GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor) {
         this.temperatureAndHumiditySensor = temperatureAndHumiditySensor;

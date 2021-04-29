@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class SoundWrapper implements IGroveSensorGetWrapper {
 
     private Logger logger = Logger.getLogger(SoundWrapper.class.getName());
-    private GroveSoundSensor soundSensor;
+    private final GroveSoundSensor soundSensor;
 
     public SoundWrapper(GroveSoundSensor soundSensor){
         this.soundSensor = soundSensor;

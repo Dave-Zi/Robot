@@ -1,5 +1,5 @@
 package Enums;
-
+@SuppressWarnings("unused")
 public enum GrovePiPort implements IPortEnums {
     A0("A0"),
     A1("A1"),

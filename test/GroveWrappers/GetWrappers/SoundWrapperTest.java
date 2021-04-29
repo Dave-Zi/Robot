@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class SoundWrapperTest {
 
     private SoundWrapper soundWrapper;
-    private GroveSoundSensor soundSensor = mock(GroveSoundSensor.class);
+    private final GroveSoundSensor soundSensor = mock(GroveSoundSensor.class);
 
     @Before
     public void setUp() {

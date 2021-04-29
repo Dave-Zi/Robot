@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class RotaryWrapper implements IGroveSensorGetWrapper {
     private Logger logger = Logger.getLogger(RotaryWrapper.class.getName());
-    private GroveRotarySensor rotarySensor;
+    private final GroveRotarySensor rotarySensor;
 
     public RotaryWrapper(GroveRotarySensor rotarySensor) {
         this.rotarySensor = rotarySensor;

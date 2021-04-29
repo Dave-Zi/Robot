@@ -3,7 +3,7 @@ package Boards;
 import Enums.IPortEnums;
 
 import java.util.List;
-
+@SuppressWarnings("unused")
 public interface IBoard<BoardPortType extends IPortEnums> {
 
     Boolean getBooleanSensorData(BoardPortType port, int mode);

@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 public class ButtonWrapperTest {
 
     private ButtonWrapper buttonWrapper;
-    private GroveDigitalIn button = mock(GroveDigitalIn.class);
+    private final GroveDigitalIn button = mock(GroveDigitalIn.class);
 
     @Before
     public void setUp() {

@@ -76,6 +76,7 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
 
     @Override
     public void disconnect() {
+        logger.log(Level.FINE, "disconnected");
     }
 
     @Override
