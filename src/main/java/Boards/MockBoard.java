@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MockBoard implements IBoard {
+@SuppressWarnings("unused")
+public class MockBoard implements IBoard<IPortEnums> {
 
-    private Random random = new Random();
-    private Map<IPortEnums, Double> portsMap = new HashMap<>();
+    private final Random random = new Random();
+    private final Map<IPortEnums, Double> portsMap = new HashMap<>();
 
     @Override
     public Boolean getBooleanSensorData(IPortEnums port, int mode) {
@@ -25,7 +26,7 @@ public class MockBoard implements IBoard {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port);
         }
-        return 10.0;
+        return random.nextDouble() * 100;
     }
 
     @Override
@@ -49,12 +50,12 @@ public class MockBoard implements IBoard {
     }
 
     @Override
-    public void rotate(List driveData) {
+    public void rotate(List<DriveDataObject> driveData) {
 
     }
 
     @Override
-    public void drive(List driveData) {
+    public void drive(List<DriveDataObject> driveData) {
 
     }
 }

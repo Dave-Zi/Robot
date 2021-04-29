@@ -1,5 +1,5 @@
 package Enums;
-
+@SuppressWarnings("unused")
 public enum BoardTypeEnum {
     EV3,
     GrovePi;

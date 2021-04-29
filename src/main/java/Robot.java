@@ -3,6 +3,8 @@ import Boards.GrovePiBoard;
 import Boards.IBoard;
 import EV3.EV3;
 import Enums.BoardTypeEnum;
+import Enums.GrovePiPort;
+import Enums.IEv3Port;
 import GroveWrappers.GetWrappers.*;
 import GroveWrappers.SetWrappers.BuzzerWrapper;
 import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
@@ -21,72 +23,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 public class Robot {
 
-//    public static void main(String[] args) throws IOException, InterruptedException {
-//        InputStream inputStream = new FileInputStream("./classes/Robot.json");
-//        byte[] data = inputStream.readAllBytes();
-//        String jsonString = new String(data);
-//        Boards.Ev3Board ev3B = (Boards.Ev3Board) boards.get(BoardTypeEnum.EV3).get(0);
-//        Boards.GrovePiBoard grovePi = (Boards.GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(0);
+    private static final IParser ev3Parser = Robot::ev3Parser;
+    private static final IParser grovePiParser = Robot::grovePiParser;
 
-//
-//        List<Boards.DriveDataObject> stop = null;
-//        List<Boards.DriveDataObject> forward =
-//                Arrays.asList(new Boards.DriveDataObject[]{new Boards.DriveDataObject(Ev3DrivePort.B, 35.0, 0),
-//                        new Boards.DriveDataObject(Ev3DrivePort.C, 35.0, 0)});
-
-
-//
-//        Map<IEv3Port, Double> turn = Map.of(
-//                Ev3DrivePort.B, 25.0
-//        );
-//
-//        int count = 0;
-//        while (count < 2) {
-    // ev3B.drive(forward);
-//            grovePi.setSensorData(GrovePiPort.D2, true);
-//            grovePi.setSensorData(GrovePiPort.D8, false);
-//
-//            Double ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
-//            double groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-//
-//            System.out.println("Driving straight!");
-//            while (ev3Distance == null || (ev3Distance > 30 && groveDistance > 20)) {
-//                ev3Distance = ev3B.getDoubleSensorData(Ev3SensorPort._2, 0);
-//                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-//            }
-//            System.out.println("Stopping");
-//
-    //   Thread.sleep(4000);
-    //     ev3B.drive(stop);
-//            grovePi.setSensorData(GrovePiPort.D2, false);
-//            grovePi.setSensorData(GrovePiPort.D8, true);
-//
-//            while (groveDistance > 20) {
-//                groveDistance = grovePi.getDoubleSensorData(GrovePiPort.D4, 0);
-//            }
-//            System.out.println("Turning!");
-//
-//
-//            ev3B.drive(turn);
-//            Thread.sleep(4000);
-//            ev3B.drive(stop);
-//            grovePi.setSensorData(GrovePiPort.D8, false);
-//
-//            count++;
-//        }
-//        ev3B.drive(stop);
-//        grovePi.setSensorData(GrovePiPort.D2, false);
-//        grovePi.setSensorData(GrovePiPort.D8, false);
-//        System.out.println("End!");
-//
-//       }
-
-    private static IParser ev3Parser = Robot::ev3Parser;
-    private static IParser grovePiParser = Robot::grovePiParser;
-
-    private static Map<String, IParser> boardToParser = Stream.of(new Object[][]{
+    private static final Map<String, IParser> boardToParser = Stream.of(new Object[][]{
             {"EV3", ev3Parser},
             {"GrovePi", grovePiParser}
 
@@ -98,11 +41,12 @@ public class Robot {
      * @param jsonString of the json file
      * @return HashMap of all the boards from the json
      */
+    @SuppressWarnings("rawtypes")
     public static Map<BoardTypeEnum, Map<Integer, IBoard>> JsonToRobot(String jsonString) {
 
         Map<BoardTypeEnum, Map<Integer, IBoard>> retMap = new HashMap<>();
         Gson gson = new Gson();
-        Map element = gson.fromJson(jsonString, Map.class); // json String to Map
+        Map<?, ?> element = gson.fromJson(jsonString, Map.class); // json String to Map
 
         for (Object key : element.keySet()) { // Iterate over board types
 
@@ -115,14 +59,13 @@ public class Robot {
 
             for (int i = 0; i < boardConfigsList.size(); i++) {
                 Map<String, String> config = boardConfigsList.get(i);
-                IBoard configsBoard;
                 try {
-                    configsBoard = boardToParser.get(boardName).executeParser(config);
+                    @SuppressWarnings("rawtypes")
+                    IBoard configsBoard = boardToParser.get(boardName).executeParser(config);
+                    boardsMap.put(i + 1, configsBoard);
                 } catch (IOException e) {
                     System.out.println("Failed to initiate board " + boardName + " configs number " + (i + 1));
-                    continue;
                 }
-                boardsMap.put(i + 1, configsBoard);
             } // Go over each config and create a board from it.
 
             retMap.put(BoardTypeEnum.valueOf(boardName), boardsMap); // Add board type to map
@@ -130,20 +73,20 @@ public class Robot {
         return retMap;
     }
 
-    private static Ev3Board ev3Parser(Map<String, String> config) {
+    private static IBoard<IEv3Port> ev3Parser(Map<String, String> config) {
         String port = config.get("Port");
         EV3 ev3 = new EV3(port);
         return new Ev3Board(ev3);
     }
 
-    private static GrovePiBoard grovePiParser(Map<String, String> config) throws IOException {
+    private static IBoard<GrovePiPort> grovePiParser(Map<String, String> config) throws IOException {
         GrovePi grovePi = new GrovePi4J();
 
         Map<String, IGroveSensorSetWrapper> sensorSetMap = new HashMap<>();
         Map<String, IGroveSensorGetWrapper> sensorGetMap = new HashMap<>();
 
         for (Map.Entry<String, String> sensorData : config.entrySet()) {
-            int portNumber = Integer.valueOf(sensorData.getKey().substring(1));
+            int portNumber = Integer.parseInt(sensorData.getKey().substring(1));
             switch (sensorData.getValue()) {
                 case "Led":
                     sensorSetMap.put(sensorData.getKey(), new LedWrapper(new GroveLed(grovePi, portNumber)));
@@ -178,30 +121,16 @@ public class Robot {
                     continue;
 
             }
+
             if (sensorData.getValue().length() == "Temperature ".length() &&
-                    sensorData.getValue().substring(0, "Temperature ".length()).equals("Temperature ")) {
+                    sensorData.getValue().startsWith("Temperature ")) {
 
-                GroveTemperatureAndHumiditySensor.Type dhtType;
-                switch (sensorData.getValue().substring("Temperature ".length())) {
-                    case "DHT11":
-                        dhtType = GroveTemperatureAndHumiditySensor.Type.DHT11;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
-                        continue;
+                String tempType = sensorData.getValue().substring("Temperature ".length());
+                GroveTemperatureAndHumiditySensor.Type dhtType =
+                        GroveTemperatureAndHumiditySensor.Type.valueOf(tempType);
 
-                    case "DHT21":
-                        dhtType = GroveTemperatureAndHumiditySensor.Type.DHT21;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
-                        continue;
-
-                    case "DHT22":
-                        dhtType = GroveTemperatureAndHumiditySensor.Type.DHT22;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
-                        continue;
-
-                    case "AM2301":
-                        dhtType = GroveTemperatureAndHumiditySensor.Type.AM2301;
-                        sensorGetMap.put(sensorData.getKey(), new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
-                }
+                sensorGetMap.put(sensorData.getKey(),
+                        new TemperatureWrapper(new GroveTemperatureAndHumiditySensor(grovePi, portNumber, dhtType)));
             }
         }
         return new GrovePiBoard(sensorGetMap, sensorSetMap);
@@ -212,6 +141,7 @@ public class Robot {
      */
     @FunctionalInterface
     public interface IParser {
+        @SuppressWarnings("rawtypes")
         IBoard executeParser(Map<String, String> config) throws IOException;
     }
 }

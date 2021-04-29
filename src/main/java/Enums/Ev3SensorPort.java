@@ -1,5 +1,5 @@
 package Enums;
-
+@SuppressWarnings("unused")
 public enum Ev3SensorPort implements IEv3Port {
     _1(1),
     _2(2),

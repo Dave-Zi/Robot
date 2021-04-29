@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class UltrasonicWrapperTest {
 
     private UltrasonicWrapper ultrasonicWrapper;
-    private GroveUltrasonicRanger ultrasonicRanger = mock(GroveUltrasonicRanger.class);
+    private final GroveUltrasonicRanger ultrasonicRanger = mock(GroveUltrasonicRanger.class);
 
     @Before
     public void setUp() {

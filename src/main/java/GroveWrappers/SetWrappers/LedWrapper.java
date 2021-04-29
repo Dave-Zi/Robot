@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class LedWrapper implements IGroveSensorSetWrapper {
     private Logger logger = Logger.getLogger(LedWrapper.class.getName());
-    private GroveLed led;
+    private final GroveLed led;
 
     public LedWrapper(GroveLed led){
         this.led = led;

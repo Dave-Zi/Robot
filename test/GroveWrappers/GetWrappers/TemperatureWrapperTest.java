@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 public class TemperatureWrapperTest {
 
     private TemperatureWrapper temperatureWrapper;
-    private GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor = mock(GroveTemperatureAndHumiditySensor.class);
+    private final GroveTemperatureAndHumiditySensor temperatureAndHumiditySensor = mock(GroveTemperatureAndHumiditySensor.class);
 
     @Before
     public void setUp() {

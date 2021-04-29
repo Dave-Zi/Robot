@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class RelayWrapper implements IGroveSensorSetWrapper {
     private Logger logger = Logger.getLogger(RelayWrapper.class.getName());
-    private GroveRelay relay;
+    private final GroveRelay relay;
 
     public RelayWrapper(GroveRelay relay){
         this.relay = relay;

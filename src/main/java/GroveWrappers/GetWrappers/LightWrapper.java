@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class LightWrapper implements IGroveSensorGetWrapper{
     private Logger logger = Logger.getLogger(LightWrapper.class.getName());
-    private GroveLightSensor lightSensor;
+    private final GroveLightSensor lightSensor;
 
     public LightWrapper(GroveLightSensor lightSensor) {
         this.lightSensor = lightSensor;

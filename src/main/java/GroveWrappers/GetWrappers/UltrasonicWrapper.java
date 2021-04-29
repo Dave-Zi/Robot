@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class UltrasonicWrapper implements IGroveSensorGetWrapper {
 
     private Logger logger = Logger.getLogger(UltrasonicWrapper.class.getName());
-    private GroveUltrasonicRanger ultrasonicRanger;
+    private final GroveUltrasonicRanger ultrasonicRanger;
 
     public UltrasonicWrapper(GroveUltrasonicRanger ultrasonicRanger){
         this.ultrasonicRanger = ultrasonicRanger;

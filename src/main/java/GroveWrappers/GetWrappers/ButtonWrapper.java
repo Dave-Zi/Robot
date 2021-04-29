@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class ButtonWrapper implements IGroveSensorGetWrapper {
 
     private Logger logger = Logger.getLogger(ButtonWrapper.class.getName());
-    private GroveDigitalIn button;
+    private final GroveDigitalIn button;
 
     public ButtonWrapper(GroveDigitalIn button){
         this.button = button;

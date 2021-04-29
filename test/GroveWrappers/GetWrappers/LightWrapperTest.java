@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class LightWrapperTest {
 
     private LightWrapper lightWrapper;
-    private GroveLightSensor lightSensor = mock(GroveLightSensor.class);
+    private final GroveLightSensor lightSensor = mock(GroveLightSensor.class);
 
     @Before
     public void setUp() {

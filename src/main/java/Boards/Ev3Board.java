@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 
 public class Ev3Board implements IBoard<IEv3Port> {
 
-    private Logger logger = Logger.getLogger(EV3.class.getName());
+    private final Logger logger = Logger.getLogger(EV3.class.getName());
 
-    private EV3 ev3;
+    private final EV3 ev3;
 
     public Ev3Board(EV3 ev3) {
         this.ev3 = ev3;
@@ -115,7 +115,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
                 fastestSpeed = driveObj.getSpeed();
             }
         }
-
+        System.out.println(fastestSpeed);
         ev3.rotate(angles[0], angles[1], angles[2], angles[3], (int) fastestSpeed);
     }
 }
