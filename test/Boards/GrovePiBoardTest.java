@@ -66,9 +66,9 @@ public class GrovePiBoardTest {
         when(grovePiBoard.getSensorSetMap()).thenCallRealMethod();
         when(grovePiBoard.getSensorSetMap().get("D2")).thenCallRealMethod();
         when(grovePiBoard.getSensorSetMap().get("D2").set(true)).thenReturn(true);
-        when(grovePiBoard.setSensorData(GrovePiPort.D2, true)).thenCallRealMethod();
+        when(grovePiBoard.setSensorMode(GrovePiPort.D2, true)).thenCallRealMethod();
 
-        boolean actual = grovePiBoard.setSensorData(GrovePiPort.D2, true);
+        boolean actual = grovePiBoard.setSensorMode(GrovePiPort.D2, true);
         assertTrue(actual);
     }
 }

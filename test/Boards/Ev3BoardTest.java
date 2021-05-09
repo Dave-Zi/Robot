@@ -33,7 +33,7 @@ public class Ev3BoardTest {
     @Test
     public void testSetSensorData() {
         doNothing().when(ev3Mock).tone(440, 50, 200);
-        boolean actual = ev3Board.setSensorData(Ev3SensorPort._1, true);
+        boolean actual = ev3Board.setSensorMode(Ev3SensorPort._1, true);
         assertTrue(actual);
     }
 

@@ -10,7 +10,10 @@ public interface IBoard<BoardPortType extends IPortEnums> {
 
     Double getDoubleSensorData(BoardPortType port, int mode);
 
-    Boolean setSensorData(BoardPortType port, boolean value);
+    Boolean setSensorMode(BoardPortType port, boolean value);
+
+    Boolean setActuatorData(BoardPortType port, boolean value);
+
 
     void drive(List<DriveDataObject> driveData);
 
