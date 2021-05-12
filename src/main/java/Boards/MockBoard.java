@@ -30,7 +30,17 @@ public class MockBoard implements IBoard<IPortEnums> {
     }
 
     @Override
-    public Boolean setSensorData(IPortEnums port, boolean value) {
+    public Boolean setSensorMode(IPortEnums port, boolean value) {
+        if (portsMap.containsKey(port)) {
+            portsMap.replace(port, value ? 1.0 : 0.0);
+        } else {
+            portsMap.put(port, value ? 1.0 : 0.0);
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean setActuatorData(IPortEnums port, boolean value) {
         if (portsMap.containsKey(port)) {
             portsMap.replace(port, value ? 1.0 : 0.0);
         } else {

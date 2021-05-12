@@ -29,6 +29,7 @@ public class Robot {
     private static final IParser ev3Parser = Robot::ev3Parser;
     private static final IParser grovePiParser = Robot::grovePiParser;
 
+
     private static final Map<String, IParser> boardToParser = Stream.of(new Object[][]{
             {"EV3", ev3Parser},
             {"GrovePi", grovePiParser}

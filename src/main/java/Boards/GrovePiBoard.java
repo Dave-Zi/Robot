@@ -60,9 +60,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
      * Take the sensor that is connected to the port 'port' and call its' set function
      */
     @Override
-    public Boolean setSensorData(GrovePiPort port, boolean value) {
+    public Boolean setSensorMode(GrovePiPort port, boolean value) {
         return sensorSetMap.get(port.portName).set(value);
     }
+
+    @Override
+    public Boolean setActuatorData(GrovePiPort port, boolean value) { return sensorSetMap.get(port.portName).set(value); }
 
     @Override
     public void drive(List<DriveDataObject> driveData) {
@@ -94,8 +97,12 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
         return sensorGetMap;
     }
 
-    void setSensorSetMap(Map<String, IGroveSensorSetWrapper> sensorSetMap){ this.sensorSetMap = sensorSetMap;}
+    void setSensorSetMap(Map<String, IGroveSensorSetWrapper> sensorSetMap) {
+        this.sensorSetMap = sensorSetMap;
+    }
 
-    void setSensorGetMap(Map<String, IGroveSensorGetWrapper> sensorGetMap){ this.sensorGetMap = sensorGetMap;}
+    void setSensorGetMap(Map<String, IGroveSensorGetWrapper> sensorGetMap) {
+        this.sensorGetMap = sensorGetMap;
+    }
 
 }
