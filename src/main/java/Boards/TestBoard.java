@@ -2,14 +2,17 @@ package Boards;
 
 import Enums.IPortEnums;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
 public class TestBoard implements IBoard<IPortEnums> {
 
-    private final Map<IPortEnums, Double> portsMap = new HashMap<>();
+    private Map<IPortEnums, Double> portsMap;
+
+    public TestBoard(Map<IPortEnums, Double> portsMap) {
+        this.portsMap = portsMap;
+    }
 
     @Override
     public Boolean getBooleanSensorData(IPortEnums port, int mode) {
