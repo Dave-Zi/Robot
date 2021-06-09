@@ -35,6 +35,22 @@ public class Robot {
             {"GrovePi", grovePiParser}
 
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IParser) data[1]));
+//    public static void main(String[] args) throws IOException, InterruptedException {
+//
+////        InputStream inputStream = new FileInputStream("./classes/Robot.json");
+////        byte[] data = inputStream.readAllBytes();
+////        String jsonString = new String(data);
+////        Map<BoardTypeEnum, Map<Integer, IBoard>> boards = JsonToRobot(jsonString);
+////
+////        Boards.Ev3Board ev3B = (Boards.Ev3Board) boards.get(BoardTypeEnum.EV3).get(1);
+////        Boards.GrovePiBoard grovePi = (Boards.GrovePiBoard) boards.get(BoardTypeEnum.GrovePi).get(1);
+////        while (true){
+////            ev3B.getDoubleSensorData(Ev3SensorPort._1);
+////            System.out.print(" ; ");
+////            ev3B.getDoubleSensorData(Ev3SensorPort._4);
+////            System.out.println();
+////        }
+//    }
 
     /**
      * reads a json file with the existing boards and their sensors.

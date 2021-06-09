@@ -8,14 +8,14 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class TestBoard implements IBoard<IPortEnums> {
 
-    private Map<IPortEnums, Double> portsMap;
+    private final Map<IPortEnums, Double> portsMap;
 
     public TestBoard(Map<IPortEnums, Double> portsMap) {
         this.portsMap = portsMap;
     }
 
     @Override
-    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+    public Boolean getBooleanSensorData(IPortEnums port) {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port) > 0;
         }
@@ -23,29 +23,30 @@ public class TestBoard implements IBoard<IPortEnums> {
     }
 
     @Override
-    public Double getDoubleSensorData(IPortEnums port, int mode) {
+    public Double getDoubleSensorData(IPortEnums port) {
         if (portsMap.containsKey(port)) {
+//            System.out.print(port.toString() + ": " + ((Ev3SensorPort)port).portNumber + " - " + portsMap.get(port));
             return portsMap.get(port);
         }
         return 10.0;
     }
 
     @Override
-    public Boolean setSensorMode(IPortEnums port, boolean value) {
+    public Boolean setSensorMode(IPortEnums port, int value) {
         if (portsMap.containsKey(port)) {
-            portsMap.replace(port, value ? 1.0 : 0.0);
+            portsMap.replace(port, (double) value);
         } else {
-            portsMap.put(port, value ? 1.0 : 0.0);
+            portsMap.put(port, (double) value);
         }
         return true;
     }
 
     @Override
-    public Boolean setActuatorData(IPortEnums port, boolean value) {
+    public Boolean setActuatorData(IPortEnums port, int value) {
         if (portsMap.containsKey(port)) {
-            portsMap.replace(port, value ? 1.0 : 0.0);
+            portsMap.replace(port, (double) value);
         } else {
-            portsMap.put(port, value ? 1.0 : 0.0);
+            portsMap.put(port, (double) value);
         }
         return true;
     }

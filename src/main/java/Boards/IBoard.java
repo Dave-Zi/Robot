@@ -6,13 +6,13 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface IBoard<BoardPortType extends IPortEnums> {
 
-    Boolean getBooleanSensorData(BoardPortType port, int mode);
+    Boolean getBooleanSensorData(BoardPortType port);
 
-    Double getDoubleSensorData(BoardPortType port, int mode);
+    Double getDoubleSensorData(BoardPortType port);
 
-    Boolean setSensorMode(BoardPortType port, boolean value);
+    Boolean setSensorMode(BoardPortType port, int value);
 
-    Boolean setActuatorData(BoardPortType port, boolean value);
+    Boolean setActuatorData(BoardPortType port, int value);
 
 
     void drive(List<DriveDataObject> driveData);

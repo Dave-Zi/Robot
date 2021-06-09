@@ -5,7 +5,9 @@ import Enums.Ev3DrivePort;
 import Enums.Ev3SensorPort;
 import Enums.IEv3Port;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +17,21 @@ public class Ev3Board implements IBoard<IEv3Port> {
 
     private final EV3 ev3;
 
+    private final Map<IEv3Port, Integer> sensorModes = new HashMap<>();
+
     public Ev3Board(EV3 ev3) {
+        sensorModes.putAll(Map.of(
+                Ev3SensorPort._1, 0,
+                Ev3SensorPort._2, 0,
+                Ev3SensorPort._3, 0,
+                Ev3SensorPort._4, 0,
+                Ev3DrivePort.A, 0,
+                Ev3DrivePort.B, 0,
+                Ev3DrivePort.C, 0,
+                Ev3DrivePort.D, 0
+        ));
         this.ev3 = ev3;
+        this.ev3.setDelay(150);
         logger.setLevel(Level.SEVERE);
     }
 
@@ -35,7 +50,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
     /*
      * Ev3 sensor ports are 1 2 3 4
      */
-    public Double getDoubleSensorData(IEv3Port port, int mode) {
+    public Double getDoubleSensorData(IEv3Port port) {
         Ev3SensorPort newPort;
         try {
             newPort = (Ev3SensorPort) port;
@@ -43,7 +58,7 @@ public class Ev3Board implements IBoard<IEv3Port> {
             logger.severe("Wrong port type");
             return null;
         }
-        Float value = ev3.sensor(newPort.portNumber, mode);
+        Float value = ev3.sensor(newPort.portNumber, sensorModes.get(port));
         if (value == null) {
             return null;
         } else {
@@ -52,19 +67,21 @@ public class Ev3Board implements IBoard<IEv3Port> {
     }
 
     @Override
-    public Boolean setSensorMode(IEv3Port port, boolean value) {
-        ev3.tone(440, 50, 200);
+    public Boolean setSensorMode(IEv3Port port, int value) {
+        sensorModes.replace(port, value);
         return true;
     }
 
     @Override
-    public Boolean setActuatorData(IEv3Port port, boolean value) {
+    public Boolean setActuatorData(IEv3Port port, int value) {
+        sensorModes.replace(port, value);
         return true;
     }
 
     @Override
-    public Boolean getBooleanSensorData(IEv3Port port, int mode) {
-        return null;
+    public Boolean getBooleanSensorData(IEv3Port port) {
+        Double value = getDoubleSensorData(port);
+        return value != null && value > 0;
     }
 
     @Override
@@ -120,7 +137,6 @@ public class Ev3Board implements IBoard<IEv3Port> {
                 fastestSpeed = driveObj.getSpeed();
             }
         }
-        System.out.println(fastestSpeed);
         ev3.rotate(angles[0], angles[1], angles[2], angles[3], (int) fastestSpeed);
     }
 }
