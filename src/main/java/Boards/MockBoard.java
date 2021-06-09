@@ -14,7 +14,7 @@ public class MockBoard implements IBoard<IPortEnums> {
     private final Map<IPortEnums, Double> portsMap = new HashMap<>();
 
     @Override
-    public Boolean getBooleanSensorData(IPortEnums port, int mode) {
+    public Boolean getBooleanSensorData(IPortEnums port) {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port) > 0;
         }
@@ -22,7 +22,7 @@ public class MockBoard implements IBoard<IPortEnums> {
     }
 
     @Override
-    public Double getDoubleSensorData(IPortEnums port, int mode) {
+    public Double getDoubleSensorData(IPortEnums port) {
         if (portsMap.containsKey(port)) {
             return portsMap.get(port);
         }
@@ -30,21 +30,21 @@ public class MockBoard implements IBoard<IPortEnums> {
     }
 
     @Override
-    public Boolean setSensorMode(IPortEnums port, boolean value) {
+    public Boolean setSensorMode(IPortEnums port, int value) {
         if (portsMap.containsKey(port)) {
-            portsMap.replace(port, value ? 1.0 : 0.0);
+            portsMap.replace(port, (double) value);
         } else {
-            portsMap.put(port, value ? 1.0 : 0.0);
+            portsMap.put(port, (double) value);
         }
         return true;
     }
 
     @Override
-    public Boolean setActuatorData(IPortEnums port, boolean value) {
+    public Boolean setActuatorData(IPortEnums port, int value) {
         if (portsMap.containsKey(port)) {
-            portsMap.replace(port, value ? 1.0 : 0.0);
+            portsMap.replace(port, (double) value);
         } else {
-            portsMap.put(port, value ? 1.0 : 0.0);
+            portsMap.put(port, (double) value);
         }
         return true;
     }

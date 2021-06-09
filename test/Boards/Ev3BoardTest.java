@@ -26,20 +26,20 @@ public class Ev3BoardTest {
     @Test
     public void testGetDoubleSensorData() {
         when(ev3Mock.sensor(1, 0)).thenReturn((float) 0.5);
-        Double actual = ev3Board.getDoubleSensorData(Ev3SensorPort._1, 0);
+        Double actual = ev3Board.getDoubleSensorData(Ev3SensorPort._1);
         assertEquals(0.5, actual, 0.01);
     }
 
     @Test
     public void testSetSensorData() {
         doNothing().when(ev3Mock).tone(440, 50, 200);
-        boolean actual = ev3Board.setSensorMode(Ev3SensorPort._1, true);
+        boolean actual = ev3Board.setSensorMode(Ev3SensorPort._1, 1);
         assertTrue(actual);
     }
 
     @Test
     public void testGetBooleanSensorData() {
-        assertNull(ev3Board.getBooleanSensorData(Ev3SensorPort._1, 0));
+        assertFalse(ev3Board.getBooleanSensorData(Ev3SensorPort._1));
     }
 
     @Test

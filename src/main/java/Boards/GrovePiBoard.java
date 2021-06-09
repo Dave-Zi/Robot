@@ -6,6 +6,7 @@ import GroveWrappers.SetWrappers.IGroveSensorSetWrapper;
 import org.iot.raspberry.grovepi.pi4j.GrovePi4J;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,8 +26,23 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
      */
     private Map<String, IGroveSensorGetWrapper> sensorGetMap;
 
+
+    protected final Map<GrovePiPort, Integer> sensorModes = new HashMap<>();
+
     public GrovePiBoard(Map<String, IGroveSensorGetWrapper> sensorGetMap, Map<String, IGroveSensorSetWrapper> sensorSetMap) throws IOException {
         super();
+        sensorModes.putAll(Map.of(
+                GrovePiPort.A0, 0,
+                GrovePiPort.A1, 0,
+                GrovePiPort.A2, 0,
+                GrovePiPort.D2, 0,
+                GrovePiPort.D3, 0,
+                GrovePiPort.D4, 0,
+                GrovePiPort.D5, 0,
+                GrovePiPort.D6, 0,
+                GrovePiPort.D7, 0,
+                GrovePiPort.D8, 0
+        ));
         this.sensorGetMap = sensorGetMap;
         this.sensorSetMap = sensorSetMap;
         logger.setLevel(Level.SEVERE);
@@ -36,36 +52,38 @@ public class GrovePiBoard extends GrovePi4J implements IBoard<GrovePiPort> {
      * Take the sensor that is connected to the port 'port' and call its' get function
      *
      * @param port of the sensor
-     * @param mode of the sensor
      * @return the result of the get function of the sensor
      */
     @Override
-    public Boolean getBooleanSensorData(GrovePiPort port, int mode) {
-        return sensorGetMap.get(port.portName).get(mode) > 0.0;
+    public Boolean getBooleanSensorData(GrovePiPort port) {
+        return sensorGetMap.get(port.portName).get(sensorModes.get(port)) > 0.0;
     }
 
     /**
      * Take the sensor that is connected to the port 'port' and call its' get function
      *
      * @param port of the sensor
-     * @param mode of the sensor
      * @return the result of the get function of the sensor
      */
     @Override
-    public Double getDoubleSensorData(GrovePiPort port, int mode) {
-        return sensorGetMap.get(port.portName).get(mode);
+    public Double getDoubleSensorData(GrovePiPort port) {
+        return sensorGetMap.get(port.portName).get(sensorModes.get(port));
     }
 
     /**
      * Take the sensor that is connected to the port 'port' and call its' set function
      */
     @Override
-    public Boolean setSensorMode(GrovePiPort port, boolean value) {
-        return sensorSetMap.get(port.portName).set(value);
+    public Boolean setSensorMode(GrovePiPort port, int value) {
+        sensorModes.replace(port, value);
+        return true;
     }
 
     @Override
-    public Boolean setActuatorData(GrovePiPort port, boolean value) { return sensorSetMap.get(port.portName).set(value); }
+    public Boolean setActuatorData(GrovePiPort port, int value) {
+        sensorModes.replace(port, value);
+        return true;
+    }
 
     @Override
     public void drive(List<DriveDataObject> driveData) {
